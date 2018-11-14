@@ -47,11 +47,11 @@
      <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs"> 
       <ul class="cl"> 
        <li>超级管理员</li> 
-       <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont"></i></a> 
+       <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">{{session('username')}} <i class="Hui-iconfont"></i></a> 
         <ul class="dropDown-menu menu radius box-shadow"> 
          <li><a href="javascript:;" onclick="myselfinfo()">个人信息</a></li> 
          <li><a href="#">切换账户</a></li> 
-         <li><a href="#">退出</a></li> 
+         <li><a href="/adminlogin">退出</a></li> 
         </ul> </li> 
        <li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px"></i></a> </li> 
        <li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px"></i></a> 
@@ -73,37 +73,36 @@
 
     <dl id="menu-picture"> 
      <dt>
-      <i class="Hui-iconfont"></i> 图片管理
+      <i class="Hui-iconfont"></i> 管理员管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
-       <li><a data-title="图片管理" data-href="/adminpicture">图片管理</a></li> 
+       <li><a data-title="管理员列表" data-href="/adminAdminUser">管理员列表</a></li>
+       <li><a data-title="权限管理" data-href="/adminRolelist">权限列表</a></li>
+       <li><a data-title="商品套餐" data-href="/adminShop">套餐列表</a></li>
       </ul> 
      </dd> 
     </dl> 
     <dl id="menu-product"> 
      <dt>
-      <i class="Hui-iconfont"></i> 订单管理
+      <i class="Hui-iconfont"></i> 会员管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
-       <li><a data-href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li> 
-       <li><a data-href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li> 
-       <li><a data-href="/adminorder" data-title="产品管理" href="javascript:void(0)">产品管理</a></li> 
+       <li><a data-href="/adminAdminVip" data-title="会员列表" >会员列表</a></li> 
       </ul> 
      </dd> 
     </dl> 
     <dl id="menu-comments"> 
      <dt>
-      <i class="Hui-iconfont"></i> 评论管理
+      <i class="Hui-iconfont"></i> 栏目管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
-       <!-- <li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a></li>  -->
-       <li><a data-href="/adminreviews" data-title="意见反馈" href="javascript:void(0)">评论列表</a></li> 
+       <li><a data-href="/adminColumn" data-title="栏目列表" href="javascript:void(0)">栏目列表</a></li> 
       </ul> 
      </dd> 
     </dl> 

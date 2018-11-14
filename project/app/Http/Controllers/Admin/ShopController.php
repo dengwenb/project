@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
-class PictureController extends Controller
+class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,9 @@ class PictureController extends Controller
      */
     public function index()
     {
-        return view('Admin.Admin.picture');
+        // echo "22";
+        $data=DB::table("diy_shop")->get();
+        return view("Admin.Admin.User.shop",['data'=>$data]);
     }
 
     /**
