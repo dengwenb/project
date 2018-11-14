@@ -61,6 +61,7 @@
 	@endif
 	<input type="hidden" value="{{session('success')}}" id="test111">
 <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+1111111111111111
 @section('content')
 @show
 <!--_footer 作为公共模版分离出去-->
