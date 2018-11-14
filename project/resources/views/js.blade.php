@@ -277,4 +277,4 @@ function link_display(obj,id,display){
 	
 @endif
 </body>
-</html>
+
