@@ -24,7 +24,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files":[
+            "app/Library/upload.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -54,4 +57,6 @@
         "sort-packages": true,
         "optimize-autoloader": true
     }
+
+
 }

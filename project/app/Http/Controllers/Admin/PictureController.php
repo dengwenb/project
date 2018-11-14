@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class PictureController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class PictureController extends Controller
      */
     public function index()
     {
-        return view('Admin.Admin.picture');
+        $data = DB::table('diy_shopicture')->get();
+        return view('Admin.Admin.Picture.index',['data'=>$data]);
     }
 
     /**
