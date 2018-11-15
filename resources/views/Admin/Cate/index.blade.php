@@ -1,7 +1,7 @@
 @extends('js')
 @section('content')
 	<div class="mt-20">
-		<table class="table table-border table-bordered table-bg table-hover ">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
 			<thead>
 				<tr class="text-c">
 				<th width="5%"><input type="checkbox" name="" value="">全选</th>

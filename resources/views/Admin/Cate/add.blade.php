@@ -10,7 +10,7 @@
 			<div class="formControls col-xs-8 col-sm-9">
 				<span class="select-box">
 				<select name="pid" class="select">
-                <option value="0" disabled="disabled">->>顶级选我</option>
+                <option value="0" >->>顶级选我</option>
                 @foreach ($data as $value)
 					
 					<option value="{{$value->id}}">{{$value->name}}</option>

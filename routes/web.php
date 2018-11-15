@@ -67,3 +67,5 @@ Route::get('/adminBranddel','Admin\BrandController@del');
 //品牌显示
 Route::get('/adminBrandstop','Admin\BrandController@stop');
 });
+//前台首页
+Route::resource('/home',"Home\HomeController");
