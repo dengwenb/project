@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class OrderController extends Controller
 {
     /**
@@ -14,7 +14,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view('Admin.Admin.Order');
+        $data=DB::table('order')->select('order.id as id','diy_users.id as uid','order.order_num as order_num','order.ctime as ctime','order.paytime as paytime','order.coupon_id as coupon_id','order.posid as posid','order.total as total','order.address_id as address_id','order.static as static')
+        ->join('diy_users','diy_users.id','=','order.uid')
+        ->join('diy_question','diy_question.id','=','order.posid')
+        ->join('diy_address','diy_address.id','=','order.address_id')
+        ->get();
+        // dd($data);
+        return view('Admin.Admin.Order',['data'=>$data]);
     }
 
     /**
