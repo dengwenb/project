@@ -24,6 +24,9 @@ Route::get('/login',function(){
 
 
 
+
+
+
 Route::group(["middleware"=>"index"],function(){
 	//后台分类管理模块
 Route::resource('/adminCate','Admin\CateController');
