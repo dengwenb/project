@@ -38,7 +38,7 @@
                      flage=true;
                   }else{
                     flage=false;
-                    $(this).next().next('span').html('两次密码不一致').css('color','red');
+                    $(this).next('br').next('span').html('两次密码不一致').css('color','red');
                   }
                 });
                 $('#ff').submit(function(){
