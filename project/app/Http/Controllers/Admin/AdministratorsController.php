@@ -24,7 +24,7 @@ class AdministratorsController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.Admin.addadmin');
     }
 
     /**

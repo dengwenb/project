@@ -29,6 +29,7 @@
 				</span> </div>
 		</div> -->
 		<div class="row cl">
+
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>原图：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<img src="{{$data->path}}" width="100px" height="100px">
@@ -43,6 +44,7 @@
 				</span> </div>
 		</div>
 		<div class="row cl">
+
 			<label class="form-label col-xs-4 col-sm-3">状态：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="status">

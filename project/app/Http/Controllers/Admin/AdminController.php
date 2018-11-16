@@ -36,7 +36,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-       
+
     }
 
     /**
@@ -84,9 +84,13 @@ class AdminController extends Controller
         //
     }
 
+
     public function mes()
     {
         //用于显示没有权限的提示信息
         echo "抱歉，你没有权限访问，请联系狗东";
     }
+
+    
+
 }
