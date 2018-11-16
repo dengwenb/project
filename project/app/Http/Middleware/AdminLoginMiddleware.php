@@ -15,7 +15,11 @@ class AdminLoginMiddleware
      */
     public function handle($request, Closure $next)
     {
+
+        //检测是否具有登录用户名的session
+
            // var_dump($request->session()->has('name'));exit;
+
         if($request->session()->has('username')){
             //获取访问模块的控制器和方法
             $actions=explode('\\', \Route::current()->getActionName());
@@ -43,5 +47,9 @@ class AdminLoginMiddleware
         }else{
             return redirect("/adminlogin/create");
         }
+
+        
+
+
     }
 }

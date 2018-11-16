@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+
+
 class ShopController extends Controller
 {
     public function getcates()
@@ -22,6 +24,7 @@ class ShopController extends Controller
         }
         return $cate;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,10 +32,16 @@ class ShopController extends Controller
      */
     public function index()
     {
+
+        // echo "22";
+        $data=DB::table("diy_shop")->get();
+        return view("Admin.Admin.User.shop",['data'=>$data]);
+
         $display = array('1','0');
         $arr = array('下架','上架');
         $data = DB::table('diy_shop')->select(DB::raw('diy_shop.*,sid,diy_shopicture.path,cates.name as cname'))->join('diy_shopicture','diy_shop.id','=','diy_shopicture.sid')->join('cates','cates.id','=','diy_shop.cate_id')->groupBy('sid')->get();
         return view('Admin.Admin.Shop.index',['data'=>$data,'arr'=>$arr,'display'=>$display]);
+
     }
 
     /**
@@ -42,8 +51,12 @@ class ShopController extends Controller
      */
     public function create()
     {
+
+        //
+
         $data = $this->getcates();
         return view('Admin.Admin.Shop.add',['data'=>$data]);
+
     }
 
     /**
@@ -52,6 +65,12 @@ class ShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function store(Request $request)
+    {
+        //
+    }
+
     public function relation($id,$request)
     {
         $attr = $request->only(['attr','value']);
@@ -84,7 +103,6 @@ class ShopController extends Controller
             }
         }
 
-        dd(111);
         //判断图片是否上传
         if(!$request->hasFile('file')){
             return back()->with('error','请上传商品图片');
@@ -142,6 +160,7 @@ class ShopController extends Controller
         }else{
             return back()->with('error','添加失败,请重新提交商品信息');
         }
+
     }
 
     /**
@@ -152,6 +171,11 @@ class ShopController extends Controller
      */
     public function show($id)
     {
+
+        //
+    }
+
+
         $data = DB::table('diy_shopicture')->where('sid','=',$id)->get();
         return view('Admin.Admin.Shop.show',['data'=>$data]);
     }
@@ -264,6 +288,7 @@ class ShopController extends Controller
             return response()->json(['result'=>'0','msg'=>'删除失败']);
         }
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -273,9 +298,12 @@ class ShopController extends Controller
     public function edit($id)
     {
         //
+
+
         $data = $this->getcates();
         $result = DB::table('diy_shop')->where('id','=',$id)->first();
         return view('Admin.Admin.Shop.edit',['data'=>$data,'result'=>$result]);
+
     }
 
     /**
@@ -287,7 +315,11 @@ class ShopController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        //
+
          return redirect('/adminShop')->with('success','成功');
+
     }
 
     /**
@@ -298,6 +330,10 @@ class ShopController extends Controller
      */
     public function destroy($id)
     {
+
+        //
+    }
+
         //删除商品信息
         if(DB::table('diy_shop')->where('id','=',$id)->delete()){
             //获取文件路径

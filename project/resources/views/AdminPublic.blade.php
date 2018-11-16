@@ -81,17 +81,12 @@
      <dd> 
       <ul> 
        <li><a data-title="商品管理" data-href="/adminShop">商品管理</a></li> 
+       <li><a data-title="库存列表" data-href="/adminSku">库存管理</a></li>
        <li><a data-title="库存列表" data-href="/adminSku/create">添加商品库存</a></li>
       </ul> 
      </dd> 
     </dl> 
-     <dl id="menu-picture"> 
-     <dt>
-      <i class="Hui-iconfont"></i> 链接管理
-      <i class="Hui-iconfont menu_dropdown-arrow"></i>
-     </dt> 
-     <dd> 
-      <ul> 
+
 
        <!-- <li><a data-href="/adminbrand" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>  -->
        <!-- <li><a data-href="/adminclass" data-title="订单表" href="javascript:void(0)">订单表</a></li>  -->
@@ -109,6 +104,7 @@
      </dd> 
     </dl> 
     <dl id="menu-picture"> 
+
 
      <dt>
       <i class="Hui-iconfont"></i> 文章管理
@@ -140,7 +136,6 @@
 
         <li><a data-title="轮播图列表" data-href="/adminBroadcast">轮播图列表</a></li>
        <li><a data-title="添加轮播图" data-href="/adminBroadcast/create">添加轮播图</a></li> 
-
       </ul> 
      </dd> 
     </dl> 
