@@ -75,22 +75,24 @@
 
     <dl id="menu-picture"> 
      <dt>
-      <i class="Hui-iconfont"></i> 图片管理
+      <i class="Hui-iconfont"></i> 商品管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
-       <li><a data-title="图片管理" data-href="/adminpicture">图片管理</a></li> 
+       <li><a data-title="商品管理" data-href="/adminShop">商品管理</a></li> 
+       <li><a data-title="库存列表" data-href="/adminSku/create">添加商品库存</a></li>
       </ul> 
      </dd> 
     </dl> 
-    <dl id="menu-product"> 
+     <dl id="menu-picture"> 
      <dt>
-      <i class="Hui-iconfont"></i> 订单管理
+      <i class="Hui-iconfont"></i> 链接管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
+
        <!-- <li><a data-href="/adminbrand" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>  -->
        <!-- <li><a data-href="/adminclass" data-title="订单表" href="javascript:void(0)">订单表</a></li>  -->
        <li><a data-href="/adminOrder" data-title="产品管理" href="javascript:void(0)">订单表</a></li> 
@@ -100,59 +102,68 @@
     </dl> 
     
     <dl id="menu-member"> 
-     <dt>
-      <i class="Hui-iconfont"></i> 会员管理
-      <i class="Hui-iconfont menu_dropdown-arrow"></i>
-     </dt> 
-     <dd> 
-      <ul> 
-       <li><a data-href="/adminuser" data-title="会员列表" href="javascript:;">会员列表</a></li> 
-       <li><a data-href="/adminuser/create" data-title="分享记录" href="javascript:void(0)">会员添加</a></li> 
+
+        <li><a data-title="链接管理" data-href="/adminLink">链接列表</a></li>
+       <li><a data-title="添加链接" data-href="/adminLink/create">添加链接</a></li> 
       </ul> 
      </dd> 
     </dl> 
-    <dl id="menu-admin"> 
+    <dl id="menu-picture"> 
+
      <dt>
-      <i class="Hui-iconfont"></i> 管理员管理
+      <i class="Hui-iconfont"></i> 文章管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
+
+       <li><a data-href="/adminuser" data-title="会员列表" href="javascript:;">会员列表</a></li> 
+       <li><a data-href="/adminuser/create" data-title="分享记录" href="javascript:void(0)">会员添加</a></li> 
+
+        <li><a data-title="文章列表" data-href="/adminArticle">文章列表</a></li>
+       <li><a data-title="添加文章" data-href="/adminArticle/create">添加文章</a></li> 
+
+      </ul> 
+     </dd> 
+    </dl> 
+     <dl id="menu-picture"> 
+     <dt>
+      <i class="Hui-iconfont"></i> 轮播图管理
+      <i class="Hui-iconfont menu_dropdown-arrow"></i>
+     </dt> 
+     <dd> 
+      <ul> 
+
        <li><a data-href="/adminstrator/create" data-title="角色管理" href="javascript:void(0)">管理员添加</a></li> 
        <li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li> 
        <li><a data-href="/adminstrator" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li> 
+
+        <li><a data-title="轮播图列表" data-href="/adminBroadcast">轮播图列表</a></li>
+       <li><a data-title="添加轮播图" data-href="/adminBroadcast/create">添加轮播图</a></li> 
+
       </ul> 
      </dd> 
     </dl> 
-    <dl id="menu-tongji"> 
+      <dl id="menu-picture"> 
      <dt>
-      <i class="Hui-iconfont"></i> 系统统计
+      <i class="Hui-iconfont"></i> 公告管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
-       <li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li> 
-       <li><a data-href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li> 
-       <li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li> 
-       <li><a data-href="charts-4.html" data-title="柱状图" href="javascript:void(0)">柱状图</a></li> 
-       <li><a data-href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li> 
-       <li><a data-href="charts-6.html" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li> 
-       <li><a data-href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li> 
+        <li><a data-title="公告列表" data-href="/adminBulletin">公告列表</a></li>
+        <li><a data-title="添加公告" data-href="/adminBulletin/create">添加公告</a></li>
       </ul> 
      </dd> 
     </dl> 
-    <dl id="menu-system"> 
+      <dl id="menu-picture"> 
      <dt>
-      <i class="Hui-iconfont"></i> 系统管理
+      <i class="Hui-iconfont"></i> 模块管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
-       <li><a data-href="/adminsystem" data-title="系统设置" href="javascript:void(0)">系统设置</a></li> 
-       <li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li> 
-       <li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li> 
-       <li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li> 
-       <li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li> 
+        <li><a data-title="模块列表" data-href="/adminModule">模块列表</a></li>
       </ul> 
      </dd> 
     </dl> 

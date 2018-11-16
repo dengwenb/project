@@ -28,7 +28,11 @@
             "App\\": "app/"
         },
         "files":[
+
         "app/Library/helper.php"
+
+            "app/Library/upload.php"
+
         ]
     },
     "autoload-dev": {
@@ -59,4 +63,6 @@
         "sort-packages": true,
         "optimize-autoloader": true
     }
+
+
 }

@@ -56,11 +56,25 @@
 	||session('controller')[1]=='attrshow')
 	@else
 	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>{{session('controller')[0]}}管理 <span class="c-gray en">&gt;</span> {{session('controller')[0]}}列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
 	<script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
 	<div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="allclick()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe601;</i> 全选或全不选 </a> <a href="javascript:;" onclick="orderclick()" class="btn btn-secondary-outline radius"><i class="Hui-iconfont">&#xe608;</i> 反选 </a> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" onclick="picture_add('添加商品','/admin{{$mname}}/create')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加{{session('controller')[0]}}</a></span> <span class="r">共有数据：<strong>{{count($data)}}</strong> 条</span> </div>
 	@endif
 	<input type="hidden" value="{{session('success')}}" id="test111">
+
+	<div class="page-container">
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="allclick()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe601;</i> 全选或全不选 </a> <a href="javascript:;" onclick="orderclick()" class="btn btn-secondary-outline radius"><i class="Hui-iconfont">&#xe608;</i> 反选 </a> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+	
+	@if (!empty($_GET['sid']))
+	<a class="btn btn-primary radius" onclick="picture_add('添加{{session('controller')[0]}}','/admin{{$mname}}/create{{'?sid='.$_GET['sid']}}')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加该商品库存</a>
+	@else
+	<a class="btn btn-primary radius" onclick="picture_add('添加{{session('controller')[0]}}','/admin{{$mname}}/create')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加{{session('controller')[0]}}</a>
+	@endif
+	</span> <span class="r">共有数据：<strong>{{count($data)}}</strong> 条</span> </div>
+	@endif
+	<input type="hidden" value="{{session('success')}}" id="test111">
+<script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
 
 @section('content')
 @show
@@ -278,4 +292,4 @@ function link_display(obj,id,display){
 	
 @endif
 </body>
-</html>
+
