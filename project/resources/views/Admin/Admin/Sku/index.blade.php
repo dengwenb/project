@@ -6,7 +6,8 @@
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="80">ID</th>
-					<th>商品</th>
+					<th width="120">商品名称</th>
+					<th>商品属性</th>
 					<th style="display:none"></th>
 					<th width="210">价格</th>
 					<th width="210">库存</th>
@@ -16,11 +17,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($data as $row)
+				@foreach($data as $key=>$row)
 				<tr class="text-c">
 					<td class="null"><input name="" type="checkbox" value="{{$row->id}}"></td>
 					<td>{{$row->id}}</td>
-					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('库存详情','/adminSku/{{$row->id}}','10001','360','400')"></u></td>
+					<td>{{$row->sname}}</td>
+					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('库存详情','/adminSku/{{$row->id}}','10001','360','400')">{{join(',',$newarr[$key])}}</u></td>
 					<td style="display:none"></td>
 					<td>{{$row->price}}</td>
 					<td>{{$row->stock}}</td>

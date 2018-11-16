@@ -30,8 +30,26 @@ class SkuController extends Controller
 
     public function index()
     {
-        $data = DB::table('diy_sku')->get();
-        return view('Admin.Admin.Sku.index',['data'=>$data]);
+        $sid  = $_GET['sid'];
+        $attr = DB::table('diy_attributes')->get();
+        foreach ($attr as $key => $value) {
+            $attribute[$value->id] = $value->name;
+        }
+        $val = DB::table('diy_shop_value')->get();
+        foreach ($val as $key => $value) {
+            $va[$value->id] = $value->name;
+        }
+        $data = DB::table('diy_sku')->join('diy_shop','diy_shop.id','=','diy_sku.sid')->select(DB::raw('diy_sku.*,diy_shop.name as sname'))->where('sid','=',$sid)->get();
+        $newarr = array();
+        foreach ($data as $key => $value) {
+            $skuattr  = substr($value->skuattr,1,-1);
+            $arr[$key]=explode(',',$skuattr);
+            foreach ($arr[$key] as $k => $v) {
+                $newarr[$key][$k] =  explode(':',$v);
+                $newarr[$key][$k] = $attribute[$newarr[$key][$k][0]].':'.$va[$newarr[$key][$k][1]];
+            }
+        }
+        return view('Admin.Admin.Sku.index',['data'=>$data,'newarr'=>$newarr]);
     }
 
     /**
@@ -39,12 +57,20 @@ class SkuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-        $cate = DB::table('cates')->where('pid','=','0')->get();
-        $data = DB::table('diy_shop')->get();
-        return view('Admin.Admin.Sku.add',['data'=>$data,'cate'=>$cate]);
+        //获取商品id
+        $id = $request->input('sid');
+        //判断是从哪个地方进来
+        if($id){
+             $copyatt = $attval = $this->getattval($id);
+             // dd($attval);
+             return view('Admin.Admin.Sku.add',['attval'=>$attval,'copyatt'=>$copyatt]);
+        }else{
+            $cate = DB::table('cates')->where('pid','=','0')->get();
+            $data = DB::table('diy_shop')->get();
+            return view('Admin.Admin.Sku.add',['data'=>$data,'cate'=>$cate]);
+        }
     }
 
     public function change(Request $request)
@@ -64,8 +90,15 @@ class SkuController extends Controller
      public function ship(Request $request)
     {
         $id = $request->input('id');
-         $data = DB::table('diy_shoprelation')->select(DB::raw('diy_shoprelation.*,diy_attributes.name as aname,diy_shop_value.name as vname'))->where('sid','=',$id)->join('diy_attributes','diy_attributes.id','=','diy_shoprelation.attid')->join('diy_shop_value','diy_shop_value.id','=','diy_shoprelation.vid')->get();
+        $data = $this->getattval($id);
         return response()->json(['msg'=>$data]);
+    }
+
+    //获取属性名和属性值
+    public function getattval($id)
+    {
+        $data = DB::table('diy_shoprelation')->select(DB::raw('diy_shoprelation.*,diy_attributes.name as aname,diy_shop_value.name as vname,diy_shop_value.attid as pid'))->where('sid','=',$id)->join('diy_attributes','diy_attributes.id','=','diy_shoprelation.attid')->join('diy_shop_value','diy_shop_value.id','=','diy_shoprelation.vid')->get();
+        return $data;
     }
 
     public function order(Request $request)
@@ -96,6 +129,11 @@ class SkuController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function getshop($id)
+    {
+
     }
 
     /**

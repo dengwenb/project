@@ -3,6 +3,7 @@
 <script type="text/javascript" src="/static/Admin/public/jquery-1.7.2.min.js"></script> 
 <article class="page-container">
 	<form action="/adminSku" method="post" class="form form-horizontal" id="form-member-add" >
+		@if (empty($_GET['sid']))
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">商品分类：</label>
 			<div class="formControls col-xs-8 col-sm-8"> <span class="select-box">
@@ -21,14 +22,39 @@
 				</span> 
 			</div>
 		</div>
+		@endif
+		@if(empty($_GET['sid']))
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">商品属性：</label>
-			<div class="formControls col-xs-3 col-sm-3"> <span class="select-box">
+			<label class="form-label col-xs-4 col-sm-3">商品组合属性：</label>
+			<div class="formControls col-xs-2 col-sm-2"> <span class="select-box">
 				<select class="select" size="1" id="relation" name="relation">				
 					<option value="" class="ss">--选择器--</option>	
 				</select>
 				</span> 
+				</div>
 			</div>
+			@else
+			<div class="row cl">
+			<label class="form-label col-xs-1 col-sm-1">组合属性：</label>
+				@foreach($attval as $key=>$val)
+				@if($key>1) @if($key=$key-1) @endif
+				@endif  
+				@if($attval[$key+1]->attid!= $attval[$key]->attid)
+				<div class="formControls col-xs-2 col-sm-2"> <span class="select-box">
+					{{$val->aname}}
+				<select class="select" size="1" id="relation" name="manyattr[{{$val->attid}}]">				
+					<option value="" >--选择器--</option>
+						@foreach($attval as $value)
+						@if($value->pid==$val->attid)
+						<option value="{{$value->vid}}">规格:商品的{{$value->aname}}:{{$value->vname}}</option>	
+						@endif
+						@endforeach
+				</select>
+				</span> 
+			</div>
+			@endif
+				@endforeach
+			@endif
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>商品价格：</label>
@@ -52,6 +78,7 @@
 	</form>
 </article>
 </body>
+@if(empty($_GET['sid']))
 <script>
 	//第一级别获取
 	$.get('/adminSkuorder',{upid:0},function(result){
@@ -126,6 +153,7 @@
 
 		$('#shop').change(function(){
 			var id = $('#shop').val();
+			var cateid = $('#cate').val();
 				$.ajax({
 					type: 'GET',
 					url: '/adminSkuship',
@@ -136,7 +164,7 @@
 							if(newdata==''){
 								var op = $('<option class="setshop " >暂无该商品属性,请前去商品管理添加属性</option>');
 									if(confirm('暂无该商品属性,是否前往商品管理添加该商品属性')){
-										picture_edit('添加商品属性',"/adminShopattr/"+id+"");
+										picture_edit('添加商品属性',"/adminShopattr/"+id+'/'+cateid+"");
 									}
 							}else{
 								var op = $('<option class="setshop" disabled>--请选择--</option>');
@@ -174,6 +202,7 @@
 		})
 
 </script>
+@endif
 </html>
 @endsection
-@section('title','文章添加')
+@section('title','添加库存')

@@ -1,7 +1,7 @@
 @extends('js')
 @section('content')
 <article class="page-container">
-	<form action="/adminShop" method="post" class="form form-horizontal" id="form-member-add"  enctype="multipart/form-data">
+	<form action="/adminShop/{{$result->id}}" method="post" class="form form-horizontal" id="form-member-add"  enctype="multipart/form-data">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品名字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -49,6 +49,7 @@
 			</div>
 		</div>
 		{{csrf_field()}}
+		{{ method_field('PUT') }}
 	</form>
 </article>
 </body>

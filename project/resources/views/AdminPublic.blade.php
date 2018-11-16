@@ -79,7 +79,7 @@
      <dd> 
       <ul> 
        <li><a data-title="商品管理" data-href="/adminShop">商品管理</a></li> 
-       <li><a data-title="库存列表" data-href="/adminSku">库存管理</a></li>
+       <li><a data-title="库存列表" data-href="/adminSku/create">添加商品库存</a></li>
       </ul> 
      </dd> 
     </dl> 

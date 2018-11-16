@@ -66,12 +66,16 @@ Route::group(["middleware"=>"index"],function(){
 	Route::resource('/adminShop','Admin\ShopController');
 	//添加商品图片
 	Route::get('/adminPictureadd/{id}','Admin\ShopController@picadd');
+	//获取商品对应类下的属性
+	Route::get('/adminShopgetattr','Admin\ShopController@getattr');
+	//获取商品对应属性下的属性值
+	Route::get('/adminShopgetvalue','Admin\ShopController@getvalue');
 	//修改商品状态
 	Route::get('/adminShopstatus','Admin\ShopController@myedit');
 	//更新商品规格
 	Route::post('/adminShopupdate/{id}','Admin\ShopController@attrupdate');
 	//显示商品规格
-	Route::get('/adminShopattr/{id}','Admin\ShopController@attrshow');
+	Route::get('/adminShopattr/{id}/{cateid}','Admin\ShopController@attrshow');
 	//模块管理
 	Route::resource('/adminModule','Admin\ModuleController');
 	//模块批量删除
@@ -87,3 +91,6 @@ Route::group(["middleware"=>"index"],function(){
 	Route::get('/adminSkushop','Admin\SkuController@shop');
 	Route::get('/adminSkuship','Admin\SkuController@ship');
 });
+
+//前台
+Route::resource('/homeShop','Home\ShopController');
