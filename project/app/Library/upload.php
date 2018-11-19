@@ -1,9 +1,12 @@
 <?php
+
 	function myupload($fname,$filepath,$request,$type=array('png','jpg','jpeg','gif'))
+
 	{
         if(!file_exists($filepath)){
              mkdir($filepath,0700);
         }
+
 	   //随机命名
         $name = time()+rand(1,10000);
         //获取上传图片信息

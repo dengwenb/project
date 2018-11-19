@@ -30,6 +30,7 @@ class SkuController extends Controller
 
     public function index()
     {
+
         $sid  = $_GET['sid'];
         $attr = DB::table('diy_attributes')->get();
         foreach ($attr as $key => $value) {
@@ -59,13 +60,14 @@ class SkuController extends Controller
      */
     public function create(Request $request)
     {
+
         //获取商品id
-        $id = $request->input('sid');
+        $id = $request->input('sid');       
         //判断是从哪个地方进来
         if($id){
              $copyatt = $attval = $this->getattval($id);
-             // dd($attval);
-             return view('Admin.Admin.Sku.add',['attval'=>$attval,'copyatt'=>$copyatt]);
+             $num = count($attval);
+             return view('Admin.Admin.Sku.add',['attval'=>$attval,'copyatt'=>$copyatt,'num'=>$num]);
         }else{
             $cate = DB::table('cates')->where('pid','=','0')->get();
             $data = DB::table('diy_shop')->get();
@@ -116,8 +118,25 @@ class SkuController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token');
-        dd($data);
+        $data = $request->except(['_token','manyattr']);
+        $manyattr = $request->input('manyattr');
+        foreach ($manyattr as $key => $value) {
+            if($value != ''){
+                   $arr[] = $key.':'.$value;
+            }
+        }
+        $data['skuattr'] = '['.join(',',$arr).']';
+
+        $num = DB::table('diy_sku')->where('sid','=',$data['sid'])->where('skuattr','=',$data['skuattr'])->count();
+        if($num >0){
+            return back()->with('error','添加库存失败,该商品的属性库存已存在');
+        }
+        $data['sales'] = 0;
+        if(DB::table('diy_sku')->insert($data)){
+            return redirect('/adminSku?sid='.$data['sid'])->with('success','添加库存成功');
+        }else{
+            return back()->with('error','添加库存失败');
+        }
     }
 
     /**
@@ -144,7 +163,8 @@ class SkuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('diy_sku')->where('id','=',$id)->first();
+        return view('Admin.Admin.Sku.edit',['data'=>$data]);
     }
 
     /**
@@ -156,7 +176,12 @@ class SkuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->except(['_token','_method']);
+        if(DB::table('diy_sku')->where('id','=',$id)->update($data)){
+            return redirect('/adminShop')->with('success','修改库存信息成功');
+        }else{
+            return back()->with('error','修改库存信息失败');
+        }
     }
 
     /**
@@ -165,8 +190,13 @@ class SkuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $id = $request->input('id');
+        if(DB::table('diy_sku')->where('id','=',$id)->delete()){
+            return response()->json(['result'=>'1','msg'=>'删除成功']);
+        }else{
+            return response()->json(['result'=>'0','msg'=>'删除失败']);
+        }
     }
 }

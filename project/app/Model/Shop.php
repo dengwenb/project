@@ -19,7 +19,7 @@ class Shop extends Model
     }
 
       public function sku(){
-        return $this->hasMany('App\Model\Sku','sid','sid');
+        return $this->hasMany('App\Model\Sku','sid','id');
     }
     // $info = Link::find(2);
         // dd($info->admin->name);

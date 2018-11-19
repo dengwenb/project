@@ -211,7 +211,7 @@
 <!-- end mobile menu -->
 <div id="page"> 
   <!--首页公告-->
-  <div id="newsletter-popup-conatiner">
+  <!-- <div id="newsletter-popup-conatiner">
     <div id="newsletter-pop-up"> <span class="hide-popup">X</span>
       <div class="subscribe-pop-up">
         <div class="title-subscribe">
@@ -235,7 +235,7 @@
           Don’t show this popup again </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--End of Newsletter Popup--> 
   
   <!-- 顶部开始 -->
@@ -639,6 +639,15 @@
 
 <!-- megamenu js --> 
 <script type="text/javascript" src="/static/Home/js/megamenu.js"></script> 
+<!-- owl.carousel.min js --> 
+<script type="text/javascript" src="/static/Home/js/owl.carousel.min.js"></script> 
+
+<!-- bxslider js --> 
+<script type="text/javascript" src="/static/Home/js/jquery.bxslider.js"></script> 
+
+<!-- flexslider js --> 
+<script type="text/javascript" src="/static/Home/js/jquery.flexslider.js"></script> 
+
 <script type="text/javascript">
   /* <![CDATA[ */   
   var mega_menu = '0';
@@ -657,7 +666,8 @@
 
 <!-- countdown js --> 
 <script type="text/javascript" src="/static/Home/js/countdown.js"></script> 
-
+<script type="text/javascript" src="/static/Home/js/cloud-zoom.js"></script> 
+<script type="text/javascript" src="/static/Home/js/jquery.magnifying-zoom.js"></script>
 <!-- Revolution Slider --> 
 <script type="text/javascript">
           jQuery(document).ready(function() {

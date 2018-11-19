@@ -49,34 +49,38 @@
             <div class="product-grid-area">
               <ul class="products-grid">
                 @foreach($data as $row )
-                {{$data[3]->sku[0]->id}}
                 <li class="item col-lg-3 col-md-4 col-sm-6 col-xs-6 ">
                   <div class="product-item">
                     <div class="item-inner">
                       <div class="product-thumbnail">
+                        @if($row->sales>9)
                         <div class="icon-sale-label sale-left">
-                          {{$row->sid}} </div>
+                          hot </div>
+                        @endif
+                        @if ($row->add_time-time() < 50000)
                         <div class="icon-new-label new-right">New</div>
-                        <div class="pr-img-area"> <a title="Ipsums Dolors Untra" href="single_product.html">
-                          <figure> <img class="first-img" src="/static/Home/images/products/img01.jpg" alt=""> <img class="hover-img" src="/static/Home/images/products/img01.jpg" alt=""></figure>
+                        @endif
+                        <div class="pr-img-area"> <a title="Ipsums Dolors Untra" href="/homeCart">
+                          <figure> <img class="first-img" src="{{substr($row->path,1)}}" alt=""> <img class="hover-img" src="{{substr($row->path,1)}}" alt=""></figure>
                           </a>
-                          <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span> Add to Cart</span> </button>
+                          <button type="button" class="add-to-cart-mt" form="tjcart"> <i class="fa fa-shopping-cart"></i><span> 加入购物车</span> </button>
                         </div>
+                        <form action="/homeCart" method="get" id="tjcart"></form>
                         <div class="pr-info-area">
                           <div class="pr-button">
                             <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart"></i> </a> </div>
                             <div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-signal"></i> </a> </div>
-                            <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>
+                            <div class="mt-button quick-view"> <a href="/homeShop/{{$row->id}}"> <i class="fa fa-search"></i> </a> </div>
                           </div>
                         </div>
                       </div>
                       <div class="item-info">
                         <div class="info-inner">
-                          <div class="item-title"> <a title="Ipsums Dolors Untra" href="single_product.html">{{$row->shop->name}}</a> </div>
+                          <div class="item-title"> <a title="Ipsums Dolors Untra" href="single_product.html">{{$row->name}}</a> </div>
                           <div class="item-content">
                             <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
                             <div class="item-price">
-                              <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
+                              <div class="price-box"> <span class="regular-price"> <span class="price">{{$row->price}}</span> </span> </div>
                             </div>
                           </div>
                         </div>
@@ -84,8 +88,7 @@
                     </div>
                   </div>
                 </li>
-             
-                @endforeach
+               @endforeach
               </ul>
             </div>
             <div class="pagination-area ">

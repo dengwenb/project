@@ -84,7 +84,6 @@ class ShopController extends Controller
             }
         }
 
-        dd(111);
         //判断图片是否上传
         if(!$request->hasFile('file')){
             return back()->with('error','请上传商品图片');
