@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
  <head> 
   <meta charset="utf-8" /> 
@@ -26,6 +27,7 @@
   <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。" /> 
  </head> 
  <body> 
+
   <header class="navbar-wrapper"> 
    <div class="navbar navbar-fixed-top"> 
     <div class="container-fluid cl"> 
@@ -47,11 +49,11 @@
      <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs"> 
       <ul class="cl"> 
        <li>超级管理员</li> 
-       <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont"></i></a> 
+       <li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">{{session('name')}}<i class="Hui-iconfont"></i></a> 
         <ul class="dropDown-menu menu radius box-shadow"> 
          <li><a href="javascript:;" onclick="myselfinfo()">个人信息</a></li> 
          <li><a href="#">切换账户</a></li> 
-         <li><a href="#">退出</a></li> 
+         <li><a href="/adminLogin/create">退出</a></li> 
         </ul> </li> 
        <li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px"></i></a> </li> 
        <li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px"></i></a> 
@@ -79,31 +81,44 @@
      <dd> 
       <ul> 
        <li><a data-title="商品管理" data-href="/adminShop">商品管理</a></li> 
+       <li><a data-title="库存列表" data-href="/adminSku">库存管理</a></li>
        <li><a data-title="库存列表" data-href="/adminSku/create">添加商品库存</a></li>
       </ul> 
      </dd> 
     </dl> 
-     <dl id="menu-picture"> 
-     <dt>
-      <i class="Hui-iconfont"></i> 链接管理
-      <i class="Hui-iconfont menu_dropdown-arrow"></i>
-     </dt> 
-     <dd> 
-      <ul> 
+
+
+       <!-- <li><a data-href="/adminbrand" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>  -->
+       <!-- <li><a data-href="/adminclass" data-title="订单表" href="javascript:void(0)">订单表</a></li>  -->
+       <li><a data-href="/adminOrder" data-title="产品管理" href="javascript:void(0)">订单表</a></li> 
+      <li><a data-href="/adminReviews" data-title="意见反馈" href="javascript:void(0)">订单评论</a></li>
+      </ul> 
+     </dd> 
+    </dl> 
+    
+    <dl id="menu-member"> 
+
         <li><a data-title="链接管理" data-href="/adminLink">链接列表</a></li>
        <li><a data-title="添加链接" data-href="/adminLink/create">添加链接</a></li> 
       </ul> 
      </dd> 
     </dl> 
     <dl id="menu-picture"> 
+
+
      <dt>
       <i class="Hui-iconfont"></i> 文章管理
       <i class="Hui-iconfont menu_dropdown-arrow"></i>
      </dt> 
      <dd> 
       <ul> 
+
+       <li><a data-href="/adminuser" data-title="会员列表" href="javascript:;">会员列表</a></li> 
+       <li><a data-href="/adminuser/create" data-title="分享记录" href="javascript:void(0)">会员添加</a></li> 
+
         <li><a data-title="文章列表" data-href="/adminArticle">文章列表</a></li>
        <li><a data-title="添加文章" data-href="/adminArticle/create">添加文章</a></li> 
+
       </ul> 
      </dd> 
     </dl> 
@@ -114,6 +129,11 @@
      </dt> 
      <dd> 
       <ul> 
+
+       <li><a data-href="/adminstrator/create" data-title="角色管理" href="javascript:void(0)">管理员添加</a></li> 
+       <li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li> 
+       <li><a data-href="/adminstrator" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li> 
+
         <li><a data-title="轮播图列表" data-href="/adminBroadcast">轮播图列表</a></li>
        <li><a data-title="添加轮播图" data-href="/adminBroadcast/create">添加轮播图</a></li> 
       </ul> 
@@ -164,6 +184,7 @@
      <!-- <div style="display:none" class="loading"></div> 
      <iframe scrolling="yes" frameborder="0" src="welcome.html"></iframe>  -->
       @section('content')
+      
       @show
    <!--  </div>  -->
    </div> 

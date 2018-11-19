@@ -7,7 +7,11 @@
 					<th width="25"><input type="checkbox" name="" value=""></th>
 					<th width="80">ID</th>
 					<th width="80">标题</th>
+
+					<th width="80">图片</th>
+
 					<th style="display:none"></th>
+
 					<th width="80">来源</th>
 					<th width="120">更新时间</th>
 					<th width="75">浏览次数</th>
@@ -21,7 +25,11 @@
 					<td class="null"><input type="checkbox" value="" name=""></td>
 					<td>{{$row->id}}</td>
 					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('文章详情','/adminArticle/{{$row->id}}','10001','360','400')">{{$row->title}}</u></td>
+
+					<td ><img src="{{$row->path}}" width="100px" height="100px"></td>
+
 					<td style="display:none"></td>
+
 					<td>{{$row->source}}</td>
 					<td>{{date('Y-m-d',$row->update_time)}}</td>
 					<td>{{$row->num}}</td>

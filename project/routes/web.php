@@ -205,6 +205,8 @@ Route::group([],function(){
 
 //前台
 Route::resource('/homeShop','Home\ShopController');
+
 Route::resource('/homeCart','Home\CartController');
 Route::get('/homeCartprice','Home\CartController@getprice');
+
 
