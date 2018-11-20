@@ -14,7 +14,11 @@ class CouponController extends Controller
      */
     public function index()
     {
-        //
+
+        return view('Home.UserInfo.mycoupon');
+
+  
+
     }
 
     /**

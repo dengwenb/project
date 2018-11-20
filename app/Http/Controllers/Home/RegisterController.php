@@ -83,7 +83,11 @@ class RegisterController extends Controller
     {
   
         // echo '21312';       passwords
+
+        $data=$request->except(['passwordss','_token','passwords']);
+
         $data=$request->only(['phone']);
+
         $data['password']=Hash::make($request->input('passwords'));
         $data['username']='用户'.rand(1,100000);
         $data['add_time']=date('Y-m-d h:i:s');
@@ -93,9 +97,15 @@ class RegisterController extends Controller
         // dd($data);
         $info=DB::table('diy_users')->insert($data);
         if($info){
+
+            return redirect('/homelogin');
+        }else{
+            return redirect('//registercontroller');
+
             echo '注册成功';
         }else{
             echo '注册失败';
+
         }
     }
 

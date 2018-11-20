@@ -1,8 +1,24 @@
+
+@extends("Home.Public.public")
+@section("home")
+
+
+ <!-- 注册 -->
+ 			<section class="main-container col1-layout">
+    <div class="main container">
+      
+        
+        <div class="page-content">
+          
+            <div class="account-login">
+            	 <div class="box-authentication">
+
 @extends('HomeLoginPublic')
 @section('homelogin')
 
  <!-- 注册 -->
               <div class="box-authentication">
+
               <form action="/registercontroller" method="post" id="ff">
               {{csrf_field()}}
                 <h4>手机注册</h4>                  
@@ -23,6 +39,15 @@
                         </ul>
                       </div>
               </div>
+
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+             
+
               <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
 			<script>
 				  flag=false;
@@ -73,15 +98,17 @@
 				    });
 				    //点击发送验证码按钮
 				    $('#boxx2').click(function(){
+
 				      // if($(this).attr('disabled')){
 				      //   return false;
 				      // }
-				     
+
 				      if($('#boxx2').attr('disabled')){
 				      	return true;
 				      }
 				      ooo=$(this);
 				      phone=$("input[name='phone']").val();
+
 				      $.get('/homephone',{phones:phone},function(data){
 				          alert(data.code);
 				          if(data.code==000000){

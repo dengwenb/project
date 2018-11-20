@@ -11,6 +11,13 @@
 |
 */
 
+
+Route::get('/', function () {
+    return view('welcome');
+});
+// 后台登录
+Route::resource('/adminlogin','Admin\AdminLoginController');
+
 Route::resource("/","Home\IndexController");
 
 
@@ -138,6 +145,7 @@ Route::group(['middleware'=>'adminlogin'],function(){
 
 
 
+
 // 注册登录
 Route::group([],function(){
     // 图片验证码
@@ -197,6 +205,49 @@ Route::group([],function(){
 });
 
 
+    //个人中心
+Route::group([],function(){
+    // 首页
+    Route::resource('/userinfo','Home\UserInfoController');
+    //我的资料
+    Route::resource('/myinformation','Home\InformationController');
+    //我的优惠券
+    Route::resource('/mycoupon','Home\CouponController');
+    //居住地址
+    Route::get('/infoaddress','Home\InformationController@infoaddress');
+    //我的评价
+    Route::resource('/myevaluation','Home\MyevaluationController');
+    //我的订单
+    Route::resource('/myorder','Home\MyorderController');
+    //我的地址
+    Route::resource('/myaddress','Home\MyaddressController');
+    //我的地址删除
+    Route::get('/myaddressdel','Home\MyaddressController@del');
+    //默认地址修改
+    Route::get('/myaddressmoren','Home\MyaddressController@moren');
+});
+
+
+
+Route::group(['middleware'=>'adminlogin'],function(){
+        // 后台首页
+        Route::resource('/admin','Admin\AdminController');
+        Route::get('/adminout','Admin\AdminController@out');
+        //后台订单表
+        Route::resource('/adminOrder','Admin\OrderController');
+        //订单详情表
+        Route::resource('/adminorderinfo','Admin\OrderinfoController');
+        // 发货按钮
+        Route::get('/adminorders/{id}','Admin\OrderinfoController@static');
+        //后台用户评论模块
+        Route::resource('/adminReviews','Admin\ReviewsController');
+        //ajax评论删除
+        Route::get('/reviewsajax','Admin\ReviewsController@reviewsajax');
+        
+
+});
+
+
 
         
 
@@ -207,4 +258,5 @@ Route::resource('/homeCart','Home\CartController');
 Route::get('/homeCartprice','Home\CartController@getprice');
 Route::get('/homeShopcol','Home\ShopController@wishlist');
 Route::post('/homeShopcoldel','Home\ShopController@delwish');
+
 
