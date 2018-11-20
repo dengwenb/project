@@ -36,7 +36,7 @@ class ShopController extends Controller
      */
     public function create()
     {
-        //
+          
     }
 
     /**
@@ -47,7 +47,18 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except('_token');
+        $data['uid'] = '1';
+        $data['add_time'] = time(); 
+        if(DB::table('diy_collection')->where('sid','=',$data['sid'])->where('uid','=',$data['uid'])->count()<1){         
+            if(DB::table('diy_collection')->insert($data)){
+                return response()->json(['result'=>'1','msg'=>'收藏成功']);
+            }else{
+                return response()->json(['result'=>'0','msg'=>'收藏失败']);
+            }
+        }else{
+            return response()->json(['result'=>'0','msg'=>'收藏失败,你已经收藏过该商品']);
+        }
     }
 
     /**
@@ -94,7 +105,7 @@ class ShopController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -118,5 +129,35 @@ class ShopController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function wishlist()
+    {
+        $num = DB::table('diy_collection')->where('uid','=','1')->count();
+        if($num>0){
+            $data = DB::table('diy_collection')->where('uid','=','1')->pluck('sid');
+            $shop = DB::table('diy_shop as s')
+            ->select(DB::raw('s.*,MIN(k.price) as price,p.path,k.skuattr,p.main'))
+            ->join('diy_shopicture as p','s.id','=','p.sid')
+            ->join('diy_sku as k','k.sid','=','s.id')
+            ->whereIn('s.id',$data)
+            ->where('main','=','1')
+            ->groupby('s.id')
+            ->get();
+        }else{
+            $shop =array();
+        }
+        return view('Home.Shop.Colletion',['shop'=>$shop,'num'=>$num]);
+    }
+
+    public function delwish(Request $request)
+    {
+        $data['sid']= $request->input('id');
+        $data['uid']= 1;
+        if(DB::table('diy_collection')->where($data)->delete()){
+            return response()->json(['result'=>'1','msg'=>'删除成功']);
+        }else{
+            return response()->json(['result'=>'0','msg'=>'删除失败']);
+        }
     }
 }

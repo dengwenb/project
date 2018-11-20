@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource("/","Home\IndexController");
 
 
 //后台登录  
@@ -208,5 +206,7 @@ Route::resource('/homeShop','Home\ShopController');
 
 Route::resource('/homeCart','Home\CartController');
 Route::get('/homeCartprice','Home\CartController@getprice');
+Route::get('/homeShopcol','Home\ShopController@wishlist');
+Route::post('/homeShopcoldel','Home\ShopController@delwish');
 
 

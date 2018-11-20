@@ -49,6 +49,17 @@
 
 <!-- style CSS -->
 <link rel="stylesheet" type="text/css" href="/static/Home/css/style.css" media="all">
+<!-- style CSS -->
+<link rel="stylesheet" type="text/css" href="/static/Home/css/blog.css" media="all">
+<style>
+#WidgetFloaterPanels{
+    display:none !important;
+}
+#WidgetLogoPanel{
+    display:none !important;
+}
+ 
+</style>
 </head>
 
 <body class="cms-index-index cms-home-page">
@@ -255,7 +266,7 @@
             <div class="headerlinkmenu col-lg-8 col-md-7 col-sm-8 col-xs-12">
               <div class="links">
                 <div class="myaccount"><a title="My Account" href="account_page.html"><i class="fa fa-user"></i><span class="hidden-xs">个人中心</span></a></div>
-                <div class="wishlist"><a title="My Wishlist" href="wishlist.html"><i class="fa fa-heart"></i><span class="hidden-xs">我的收藏</span></a></div>
+                <div class="wishlist"><a title="My Wishlist" href="/homeShopcol"><i class="fa fa-heart"></i><span class="hidden-xs">我的收藏</span></a></div>
                 <div class="blog"><a title="Blog" href="blog.html"><i class="fa fa-rss"></i><span class="hidden-xs">公告</span></a></div>
                 <div class="login"><a href="account_page.html"><i class="fa fa-unlock-alt"></i><span class="hidden-xs">登陆</span></a></div>
               </div>
@@ -265,12 +276,22 @@
                   <div class="block block-language form-language">
                     <div class="lg-cur"> <span> <img src="/static/Home/images/flag-default.jpg" alt="French"> <span class="lg-fr">French</span> <i class="fa fa-angle-down"></i> </span> </div>
                     <ul>
-                      <li> <a class="selected" href="#"> <img src="/static/Home/images/flag-english.jpg" alt="flag"> <span>English</span> </a> </li>
+                      <!-- <li> <a class="selected" href="#"> <img src="/static/Home/images/flag-english.jpg" alt="flag"> <span>English</span> </a> </li>
+
                       <li> <a href="#"> <img src="/static/Home/images/flag-default.jpg" alt="flag"> <span>French</span> </a> </li>
                       <li> <a href="#"> <img src="/static/Home/images/flag-german.jpg" alt="flag"> <span>German</span> </a> </li>
                       <li> <a href="#"> <img src="/static/Home/images/flag-brazil.jpg" alt="flag"> <span>Brazil</span> </a> </li>
                       <li> <a href="#"> <img src="/static/Home/images/flag-chile.jpg" alt="flag"> <span>Chile</span> </a> </li>
-                      <li> <a href="#"> <img src="/static/Home/images/flag-spain.jpg" alt="flag"> <span>Spain</span> </a> </li>
+                      <li> <a href="#"> <img src="/static/Home/images/flag-spain.jpg" alt="flag"> <span>Spain</span> </a> </li> 
+                    -->
+                    <select id="change" onchange="dianji()">
+     
+    <option value="">切换语言</option>
+    <option value="zhongwen">中文</option>
+    <option value="English">英文</option>
+    <option value="Français">法文</option>
+     
+</select>
                     </ul>
                   </div>
                   <div class="block block-currency">
@@ -334,26 +355,31 @@
               <div class="mini-cart">
                 <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle"> <a href="#">
                   <div class="cart-icon"><i class="fa fa-shopping-cart"></i></div>
-                  <div class="shoppingcart-inner hidden-xs"><span class="cart-title">购物车</span> <span class="cart-total">4 Item(s): $520.00</span></div>
+                  <div class="shoppingcart-inner hidden-xs"><span class="cart-title">购物车</span> <span class="cart-total" style="color:red"> {{count(session('cart'))}} 件</span><span class="attpri" style="position:relative;top:-45px;left:50px"></span></div>
                   </a></div>
                 <div>
                   <div class="top-cart-content">
 
                     <div class="block-subtitle hidden-xs">最近加入的项目</div>
                     <ul id="cart-sidebar" class="mini-products-list">
-
-                      <li class="item odd"> <a href="shopping_cart.html" title="Ipsums Dolors Untra" class="product-image"><img src="/static/Home/images/products/img07.jpg" alt="Lorem ipsum dolor" width="65"></a>
-                        <div class="product-details"> <a href="#" title="Remove This Item" class="remove-cart"><i class="icon-close"></i></a>
-                          <p class="product-name"><a href="shopping_cart.html">Lorem ipsum dolor sit amet Consectetur</a> </p>
-                          <strong>1</strong> x <span class="price">$20.00</span> </div>
+                      @if($ortotal = 0)  @endif
+                      @if(!empty(session('cart')))
+                      @foreach(session('cart') as $value)
+                      <li class="item odd"> <a href="/homeCart" title="Ipsums Dolors Untra" class="product-image"><img src="{{$value['pic']}}" alt="Lorem ipsum dolor" width="65"></a>
+                        <div class="product-details"> <a href="javascript:;"  onClick="mydel(this,{{$value['distant']}},{{$value['sid']}})"  title="Remove This Item" class="remove-cart"><i class="icon-close"></i></a>
+                          <p class="product-name"><a href="shopping_cart.html">商品</a></p>
+                          <strong class="strnum">{{$value['num']}}</strong> x <span class="price">${{$value['price']}}</span> </div>
+                        
+                        <input type="hidden" name="totalaaa" value="{{$ortotal +=$value['num']*$value['price']}}">
                       </li>
-                     
+                     @endforeach
+                     @endif
                     </ul>
 
-                    <div class="top-subtotal">总价: <span class="price">$520.00</span></div>
+                    <div class="top-subtotal">总价: <span class="price attpri">${{$ortotal or 0}}</span></div>
                     <div class="actions">
                       <button class="btn-checkout" type="button"><i class="fa fa-check"></i><span>去结算</span></button>
-                      <button class="view-cart" type="button"><i class="fa fa-shopping-cart"></i> <span>查看购物车</span></button>
+                      <button class="view-cart" type="button" onClick="location='/homeCart'"><i class="fa fa-shopping-cart"></i> <span>查看购物车</span></button>
                     </div>
                   </div>
                 </div>
@@ -383,7 +409,7 @@
               <div class="mega-menu-category">
                 <ul class="nav">
                 <!-- 左侧导航顶级 -->
-                  <li> <a href="#"><i class="icon fa fa-camera fa-fw"></i> 左侧顶级</a>
+                  <li  style="display:none"> <a href="#"><i class="icon fa fa-camera fa-fw"></i> 左侧顶级</a>
                     <div class="wrap-popup">
                       <div class="popup">
                         <div class="row">
@@ -617,7 +643,8 @@
     </div>
   </footer>
   <a href="#" class="totop"> </a> </div>
-
+       {{csrf_field()}}
+       {{method_field('DELETE')}}
 <!-- End Footer --> 
 
 <!-- JS --> 
@@ -668,6 +695,7 @@
 <script type="text/javascript" src="/static/Home/js/countdown.js"></script> 
 <script type="text/javascript" src="/static/Home/js/cloud-zoom.js"></script> 
 <script type="text/javascript" src="/static/Home/js/jquery.magnifying-zoom.js"></script>
+
 <!-- Revolution Slider --> 
 <script type="text/javascript">
           jQuery(document).ready(function() {
@@ -705,5 +733,110 @@
       var iid1 = "countbox_1";
       CountBack_slider(gsecs1,"countbox_1", 1);
   </script>
+  <script>
+  function mydel(obj,distant,id)
+  {
+      var token = $('input[name="_token"]').val();
+      var method = $('input[value="DELETE"]').val();
+        $.ajax({
+          type: 'POST',
+          url: '/homeCart/'+id,
+          data: {distant:distant,id:id,'_token':token,'_method':method},
+          dataType: 'json',
+          success: function(data){
+            if(data.result==1){
+              $(obj).parents("li").remove();
+
+              alert(data.msg);
+            }else{
+              alert(data.msg);
+            }     
+          },
+          error:function(data) {
+            console.log(data.msg);
+          },
+        });   
+  }   
+
+  $('span.attpri').html('$'+{{$ortotal or 0}});
+</script>
+<!-- <script>
+     
+$(function(){
+     var script=document.createElement("script"); 
+     script.type="text/javascript"; 
+     script.src="http://www.microsoftTranslator.com/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**"; 
+     document.getElementsByTagName('head')[0].appendChild(script); 
+  
+    var resultm = sessionStorage.getItem("language");
+                 
+     document.onreadystatechange = function () {
+ 
+                  
+             if (document.readyState == 'complete') {
+                          
+                    if(resultm==="English"){
+                             Microsoft.Translator.Widget.Translate('zh-CHS', 'en', onProgress, onError, onComplete, onRestoreOriginal, 2000);
+                    }else if(resultm==="Français"){
+                             Microsoft.Translator.Widget.Translate('zh-CHS', 'fr', onProgress, onError, onComplete, onRestoreOriginal, 2000);
+                    }else  if(resultm==="zhongwen"){
+                             Microsoft.Translator.Widget.Translate('zh-CHS', 'zh-CHS', onProgress, onError, onComplete, onRestoreOriginal, 2000);
+                    }
+             }
+     }
+      
+     function onProgress(value) {
+            $("#WidgetFloaterPanels").hide();
+     }
+     function onError(error) {
+            $("#WidgetFloaterPanels").hide();
+     }
+     function onComplete() {
+            $("#WidgetFloaterPanels").hide();
+     }
+     function onRestoreOriginal() {
+            $("#WidgetFloaterPanels").hide();
+     }
+});
+     
+     
+     
+function dianji(){
+         
+      var result = $("#change").val();
+         
+      if(result==="English"){
+          
+            sessionStorage.setItem("language", "English");
+             
+      }else if(result==="Français"){
+          
+            sessionStorage.setItem("language", "Français");
+      
+      }else if(result==="zhongwen"){
+          
+            sessionStorage.setItem("language", "zhongwen");
+      }
+                  
+        window.location.reload();//刷新当前页面.
+     
+    }
+ 
+      $(document).ready(function(){ 
+　
+      $('#WidgetFloaterPanels').html('').hide().removeAttr('style');
+      $('div[translate="no"]').html('').hide().removeAttr('style');
+    
+　　}); 
+
+        window.onmousemove = function(){
+
+            $('#WidgetFloaterPanels').next().hide(); 
+            // alert($('#WidgetFloaterPanels').next().html());
+            if($('#WidgetFloaterPanels').next().html()!=undefined){
+                $('#WidgetFloaterPanels').next().html('').remove();
+            }
+        }      
+</script> -->
 </body>
 </html>
