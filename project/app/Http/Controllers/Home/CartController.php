@@ -14,8 +14,6 @@ class CartController extends Controller
      */
     public function index(Request $request)
     {
-        // $request->session()->pull('cart');
-        // dd(111);
         //获取属性表
         $attributes = DB::table('diy_attributes')->get();
         //获取属性值表
@@ -62,7 +60,17 @@ class CartController extends Controller
     {
         //获取数据
         $data = $request->except('_token');
-        // //得到购物车的session信息
+        //判断是从哪里进来的
+        if(empty($request->input('num'))){
+            $data['num'] = 1;
+            $data['skuattr'] = explode(',',substr($data['skuattr'],1,-1));
+            foreach ($data['skuattr'] as $key => $value) {
+                $value = explode(':',$value);
+                $newdata[$value[0]] = $value[1];
+            }
+            $data['skuattr'] = $newdata; 
+        }
+        //得到购物车的session信息
         $cart = session('cart');
         if(!empty($cart)){
             //遍历判断是否是第一次添加该商品
@@ -151,6 +159,7 @@ class CartController extends Controller
                                 }else{
                                     $num = $data[$key]['num'];
                                 }
+                                break;
                             }else{
                                  $num = 0;
                             }   

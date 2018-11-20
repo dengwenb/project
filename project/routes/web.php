@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource("/","Home\IndexController");
 
 
 //后台登录  
@@ -231,6 +229,7 @@ Route::group([],function(){
 Route::resource('/homeShop','Home\ShopController');
 Route::resource('/homeCart','Home\CartController');
 Route::get('/homeCartprice','Home\CartController@getprice');
+
 Route::resource('/homeOrder','Home\OrderController');
 Route::get('/homeorderget','Home\OrderController@dis');
 Route::resource('/Pay','Home\PayController');
@@ -240,3 +239,9 @@ Route::get('/chenggon','Home\PayController@cg');
 Route::resource('/homeCoupon','Home\CouponController');
 //领取购物券操作
 Route::get('/homeCouponlq','Home\CouponController@lq');
+
+Route::get('/homeShopcol','Home\ShopController@wishlist');
+Route::post('/homeShopcoldel','Home\ShopController@delwish');
+
+
+

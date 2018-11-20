@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use DB;
 class AppServiceProvider extends ServiceProvider
@@ -59,16 +59,22 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Request $request)
     {
+
         //
         $cate=$this->getcatesbypid(0);
         
         $link=$this->getlink();
-        // view()->share('online', $online);
+      
         view()->share('nav', $cate);
         view()->share('link',$link);
  
+
+
+        // dd(session('cart'));
+        // view()->share('data',$data);
+
     }
 
     /**
