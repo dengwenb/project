@@ -56,7 +56,7 @@
     display:none !important;
 }
 #WidgetLogoPanel{
-    display:none !important;
+    
 }
  
 </style>
