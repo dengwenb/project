@@ -75,6 +75,30 @@ Route::group([],function(){
     Route::post('doemailpass','Home\RetrieveController@doemailpass');
 });
 
+    //个人中心
+Route::group([],function(){
+    // 首页
+    Route::resource('/userinfo','Home\UserInfoController');
+    //我的资料
+    Route::resource('/myinformation','Home\InformationController');
+    //我的优惠券
+    Route::resource('/mycoupon','Home\CouponController');
+    //居住地址
+    Route::get('/infoaddress','Home\InformationController@infoaddress');
+    //我的评价
+    Route::resource('/myevaluation','Home\MyevaluationController');
+    //我的订单
+    Route::resource('/myorder','Home\MyorderController');
+    //我的地址
+    Route::resource('/myaddress','Home\MyaddressController');
+    //我的地址删除
+    Route::get('/myaddressdel','Home\MyaddressController@del');
+    //默认地址修改
+    Route::get('/myaddressmoren','Home\MyaddressController@moren');
+});
+
+
+
 Route::group(['middleware'=>'adminlogin'],function(){
         // 后台首页
         Route::resource('/admin','Admin\AdminController');

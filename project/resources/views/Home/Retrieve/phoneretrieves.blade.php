@@ -1,7 +1,15 @@
-@extends('HomeLoginPublic')
-@section('homelogin')
+@extends("Home.Public.public")
+@section("home")
+
   <!-- 手机号登录 -->
-              <div class="box-authentication">
+  <section class="main-container col1-layout">
+    <div class="main container">
+      
+        
+        <div class="page-content">
+          
+            <div class="account-login">
+               <div class="box-authentication">
                 <h4>重置密码</h4>
                 <form action="/dophoneretrieves" method="post" id="ff">
                 <input type="hidden" name="token" value="{{$data->_token}}">
@@ -16,6 +24,13 @@
                 <input class="btn btn-success" type="submit" value="找回">
                 </form>
               </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+             
                <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
               <script>
               flag=false;

@@ -1,7 +1,15 @@
-@extends('HomeLoginPublic')
-@section('homelogin')
+@extends("Home.Public.public")
+@section("home")
+
   <!-- 手机号登录 -->
-              <div class="box-authentication">
+    <section class="main-container col1-layout">
+    <div class="main container">
+      
+        
+        <div class="page-content">
+          
+            <div class="account-login">
+             <div class="box-authentication">
                 <h4>短信登录</h4>
                 <form action="/dophonelogin" method="post" id="ff">
                 {{csrf_field()}}
@@ -14,6 +22,13 @@
                 <input class="btn btn-success" type="submit" value="登录">
                 </form>
               </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+             
               <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
               <script>
               flag=false;
@@ -67,13 +82,13 @@
                           flages=true;
                         }else if(data==2){
                           $('#font').html('校验码不一致');
-                           flag=false;
+                           flages=false;
                         }else if(data==3){
                           $('#font').html('校验码不能为空');
-                           flag=false;
+                           flages=false;
                         }else{
                           $('#font').html('校验码过期');
-                          flag=false;
+                          flages=false;
                         }
                       },'json');
                   });

@@ -1,6 +1,14 @@
-@extends('HomeLoginPublic')
-@section('homelogin')
+@extends("Home.Public.public")
+@section("home")
+
 <!-- 用户名登录 -->
+      <section class="main-container col1-layout">
+    <div class="main container">
+      
+        
+        <div class="page-content">
+          
+            <div class="account-login">
               <div class="box-authentication">
                 <h4>登录</h4>
                 
@@ -15,5 +23,12 @@
                 <input class="btn btn-success" type="submit" value="登录"><label class="inline" for="rememberme"></label>
                 </form>
               </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+            
 @endsection
 @section('title','用户名登录')

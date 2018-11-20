@@ -17,8 +17,9 @@ class LoginController extends Controller
      */
     
 
-    public function index()
+    public function index(Request $request)
     {
+        $request->session()->pull('username');
         return view('Home.Login.homelogin');
     }
 
@@ -46,10 +47,13 @@ class LoginController extends Controller
         if(!empty($username)){
             if(!empty($password)){
                 $data=DB::table('diy_users')->where('username','=',$username)->first();
+
                 if($data){
                     if(Hash::check($password,$data->password)){
                         if($data->status==2){
-                           echo '登录成功';
+                            session(['username'=>$data->username]);
+                            session(['id'=>$data->id]);
+                           return redirect('/');
                         }else{
                             return back()->with('user','用户未激活');
                         }
@@ -118,7 +122,9 @@ class LoginController extends Controller
         if($data){
             // echo '登录成功';
             if($data->status==2){
-                echo '登录成功';
+               session(['username'=>$data->username]);
+                session(['id'=>$data->id]);
+               return redirect('/');
             }else{
                 return back()->with('error','账户未激活');
             }
@@ -157,7 +163,10 @@ class LoginController extends Controller
             if($data){
                 if(Hash::check($password,$data->password)){
                     if($data->status==2){
-                        echo '登录成功';
+                        // echo '登录成功';
+                        session(['username'=>$data->username]);
+                         session(['id'=>$data->id]);
+                        return redirect('/');
                     }else{
                         return back()->with('youxiang','改账号还未激活');
                     }

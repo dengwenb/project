@@ -1,7 +1,15 @@
-@extends('HomeLoginPublic')
-@section('homelogin')
+@extends("Home.Public.public")
+@section("home")
+
   <!-- 手机号登录 -->
-              <div class="box-authentication">
+   <section class="main-container col1-layout">
+    <div class="main container">
+      
+        
+        <div class="page-content">
+          
+            <div class="account-login">
+               <div class="box-authentication">
                 <h4>短信找回密码</h4>
                 <form action="/phoneretrieves" method="post" id="ff">
                 {{csrf_field()}}
@@ -13,6 +21,13 @@
                 <input class="btn btn-success" type="submit" value="找回">
                 </form>
               </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+             
                <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
               <script>
                 flag=false;

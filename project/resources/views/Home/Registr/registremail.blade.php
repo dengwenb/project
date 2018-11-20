@@ -1,6 +1,13 @@
-@extends('HomeLoginPublic')
-@section('homelogin')
-  <div class="box-authentication" >
+@extends("Home.Public.public")
+@section("home")
+      <section class="main-container col1-layout">
+    <div class="main container">
+      
+        
+        <div class="page-content">
+          
+            <div class="account-login">
+              <div class="box-authentication" >
                 <h4>邮箱注册</h4>
                 <form action="/dohomeemail" method="post" id="fff">
                 {{csrf_field()}}
@@ -11,11 +18,18 @@
                 <input  type="password" class="form-control" name="password" reminder="密码由数字和字母组合 6~15位"><span></span><br/>
                 <label for="password_login">输入验证码:<span class="required">*</span></label>
                 <input type="text" name="yanzhenma" reminder="输入验证码" style="width:100px;height:40px;"><img src="/captcha" onclick="this.src=this.src+'?a=1'">
-              	<br><span></span>
+                <br><span></span>
                 <p class="forgot-pass">或者使用　<a  href="/registercontroller" style="color:red;">手机注册</a></p>
                 <input class="btn btn-success" type="submit" value="注册">
                 </form>
               </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+            
                <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
               <script>
                 flag=false;
@@ -60,14 +74,15 @@
                     yy=$(this).val();
                     yyy=$(this);
                     $.get('/yanzhengma',{yzm:yy},function(data){
+                      alert(data);
                         if(data==1){
-                          yyy.next('img').next('br').next('span').html('√').css('color','green');
+                             yyy.next('img').next('br').next('span').html('√').css('color','green');
                           flages=true;
-                        }else if(data==2){
-                          yyy.next('img').next('br').next('span').html('验证码不能为空').css('color','red');
+                          }else if(data==2){
+                              yyy.next('img').next('br').next('span').html('验证码不能为空').css('color','red');
                           flages=false;
-                        }else{
-                          yyy.next('img').next('br').next('span').html('验证码错误').css('color','red');
+                          }else{
+                              yyy.next('img').next('br').next('span').html('验证码错误').css('color','red');
                         }
                     });
                   });

@@ -1,6 +1,14 @@
-@extends('HomeLoginPublic')
-@section('homelogin')
+@extends("Home.Public.public")
+@section("home")
+
 <!-- 邮箱登录 -->
+<section class="main-container col1-layout">
+    <div class="main container">
+      
+        
+        <div class="page-content">
+          
+            <div class="account-login">
               <div class="box-authentication" >
                 <h4>重置密码</h4>
                 
@@ -17,6 +25,13 @@
                 <input class="btn btn-success" type="submit" value="重置">
                 </form>
               </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+            
               <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script>
               <script>
               flag=false;
