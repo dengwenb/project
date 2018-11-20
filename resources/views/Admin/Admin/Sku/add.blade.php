@@ -4,6 +4,7 @@
 <article class="page-container">
 	<form action="/adminSku" method="post" class="form form-horizontal" id="form-member-add" >
 		@if (empty($_GET['sid']))
+		<input type="hidden" name="cate" >
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">商品分类：</label>
 			<div class="formControls col-xs-8 col-sm-8"> <span class="select-box">
@@ -34,14 +35,12 @@
 				</div>
 			</div>
 			@else
+			<input type="hidden" name="sid" value="{{$_GET['sid']}}">
 			<div class="row cl">
 			<label class="form-label col-xs-1 col-sm-1">组合属性：</label>
-				@foreach($attval as $key=>$val)
-				@if($key>1) @if($key=$key-1) @endif
-				@endif  
-				@if($attval[$key+1]->attid!= $attval[$key]->attid)
+				@foreach($num as $key=>$val)
 				<div class="formControls col-xs-2 col-sm-2"> <span class="select-box">
-					{{$val->aname}}
+					{{$val->name}}
 				<select class="select" size="1" id="relation" name="manyattr[{{$val->attid}}]">				
 					<option value="" >--选择器--</option>
 						@foreach($attval as $value)
@@ -52,7 +51,6 @@
 				</select>
 				</span> 
 			</div>
-			@endif
 				@endforeach
 			@endif
 		</div>
@@ -73,7 +71,6 @@
 				<input class="btn btn-primary radius" type="submit" id="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
 			</div>
 		</div>
-		<input type="hidden" name="cate" >
 		{{csrf_field()}}
 	</form>
 </article>
