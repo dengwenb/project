@@ -130,6 +130,30 @@ Route::group(['middleware'=>'adminlogin'],function(){
 	Route::get('/adminSkuorder','Admin\SkuController@order');
 	Route::get('/adminSkushop','Admin\SkuController@shop');
 	Route::get('/adminSkuship','Admin\SkuController@ship');
+    //后台分类管理模块
+    Route::resource('/adminCate','Admin\CateController');
+    //ajax删除分类
+    Route::get('/adminCatedel','Admin\CateController@del');
+    //ajax下架分类
+    Route::get('/adminCatestop','Admin\CateController@stop');
+    //优惠券管理
+    Route::resource('/adminCoupon','Admin\CouponController');
+    //优惠券删除
+    Route::get('/adminCoupondel','Admin\CouponController@del');
+    //优惠券显示
+    Route::get('/adminCouponstop','Admin\CouponController@stop');
+    //后台物流管理
+    Route::resource('/adminLog','Admin\LogController');
+    //删除物流
+    Route::get('/adminLogdel','Admin\LogController@del');
+    //物流显示隐藏操作
+    Route::get('/adminLogstop','Admin\LogController@stop');
+    //后台品牌管理
+    Route::resource('/adminBrand','Admin\BrandController');
+    //品牌删除
+    Route::get('/adminBranddel','Admin\BrandController@del');
+    //品牌显示
+    Route::get('/adminBrandstop','Admin\BrandController@stop');
 });
     
     Route::resource("/indexBlog","Home\BlogController");
@@ -203,10 +227,21 @@ Route::group([],function(){
 
 //前台
 Route::resource('/homeShop','Home\ShopController');
-
 Route::resource('/homeCart','Home\CartController');
 Route::get('/homeCartprice','Home\CartController@getprice');
+
+Route::resource('/homeOrder','Home\OrderController');
+Route::get('/homeorderget','Home\OrderController@dis');
+Route::resource('/Pay','Home\PayController');
+Route::get('/Pays','Home\PayController@pays');
+Route::get('/chenggon','Home\PayController@cg');
+//优惠券首页
+Route::resource('/homeCoupon','Home\CouponController');
+//领取购物券操作
+Route::get('/homeCouponlq','Home\CouponController@lq');
+
 Route::get('/homeShopcol','Home\ShopController@wishlist');
 Route::post('/homeShopcoldel','Home\ShopController@delwish');
+
 
 
