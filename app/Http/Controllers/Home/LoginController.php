@@ -17,9 +17,14 @@ class LoginController extends Controller
      */
     
 
+
     public function index(Request $request)
     {
         $request->session()->pull('username');
+
+    public function index()
+    {
+
         return view('Home.Login.homelogin');
     }
 
@@ -48,12 +53,19 @@ class LoginController extends Controller
             if(!empty($password)){
                 $data=DB::table('diy_users')->where('username','=',$username)->first();
 
+
                 if($data){
                     if(Hash::check($password,$data->password)){
                         if($data->status==2){
                             session(['username'=>$data->username]);
                             session(['id'=>$data->id]);
                            return redirect('/');
+
+                if($data){
+                    if(Hash::check($password,$data->password)){
+                        if($data->status==2){
+                           echo '登录成功';
+
                         }else{
                             return back()->with('user','用户未激活');
                         }
@@ -120,10 +132,16 @@ class LoginController extends Controller
         $phone=$request->input('phonelogin');
         $data=DB::table('diy_users')->where('phone','=',$phone)->first();
         if($data){
+
             if($data->status==2){
                	session(['username'=>$data->username]);
                 session(['id'=>$data->id]);
                return redirect('/');
+
+            // echo '登录成功';
+            if($data->status==2){
+                echo '登录成功';
+
             }else{
                 return back()->with('error','账户未激活');
             }
@@ -162,9 +180,13 @@ class LoginController extends Controller
             if($data){
                 if(Hash::check($password,$data->password)){
                     if($data->status==2){
+
                         session(['username'=>$data->username]);
                          session(['id'=>$data->id]);
                         return redirect('/');
+
+                        echo '登录成功';
+
                     }else{
                         return back()->with('youxiang','改账号还未激活');
                     }
