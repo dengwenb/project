@@ -66,7 +66,12 @@ class SkuController extends Controller
         //判断是从哪个地方进来
         if($id){
              $copyatt = $attval = $this->getattval($id);
-             $num = count($attval);
+             // $num = count($attval);
+             $num = DB::table('diy_shoprelation as r')
+             ->join('diy_attributes as a','a.id','=','r.attid')
+             ->groupby('r.attid')
+             ->where('sid','=',$id)
+             ->get();
              return view('Admin.Admin.Sku.add',['attval'=>$attval,'copyatt'=>$copyatt,'num'=>$num]);
         }else{
             $cate = DB::table('cates')->where('pid','=','0')->get();
@@ -99,7 +104,14 @@ class SkuController extends Controller
     //获取属性名和属性值
     public function getattval($id)
     {
-        $data = DB::table('diy_shoprelation')->select(DB::raw('diy_shoprelation.*,diy_attributes.name as aname,diy_shop_value.name as vname,diy_shop_value.attid as pid'))->where('sid','=',$id)->join('diy_attributes','diy_attributes.id','=','diy_shoprelation.attid')->join('diy_shop_value','diy_shop_value.id','=','diy_shoprelation.vid')->get();
+        $data = DB::table('diy_shoprelation as r')
+        ->select(DB::raw('r.*,a.name as aname,diy_shop_value.name as vname,diy_shop_value.attid as pid'))
+        ->where('sid','=',$id)
+        ->join('diy_attributes as a','a.id','=','r.attid')
+        ->join('diy_shop_value','diy_shop_value.id','=','r.vid')
+        ->orderby('r.attid')
+        ->get();
+        // dd($data);
         return $data;
     }
 

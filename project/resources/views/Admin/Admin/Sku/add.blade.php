@@ -38,16 +38,9 @@
 			<input type="hidden" name="sid" value="{{$_GET['sid']}}">
 			<div class="row cl">
 			<label class="form-label col-xs-1 col-sm-1">组合属性：</label>
-				@foreach($attval as $key=>$val)
-				@if($key>0) @if($key=$key-1) @endif
-				@endif
-				@if($num!=1) @if($ttt=$attval[$key+1]->attid)  @endif
-				@else
-				@if($ttt=$attval[$key]->attid.'1')  @endif
-				@endif
-				@if($ttt != $attval[$key]->attid)
+				@foreach($num as $key=>$val)
 				<div class="formControls col-xs-2 col-sm-2"> <span class="select-box">
-					{{$val->aname}}
+					{{$val->name}}
 				<select class="select" size="1" id="relation" name="manyattr[{{$val->attid}}]">				
 					<option value="" >--选择器--</option>
 						@foreach($attval as $value)
@@ -58,7 +51,6 @@
 				</select>
 				</span> 
 			</div>
-			@endif
 				@endforeach
 			@endif
 		</div>

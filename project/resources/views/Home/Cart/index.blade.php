@@ -156,6 +156,8 @@
               $('td.count').each(function(){
                 count += parseFloat($(this).find('span').html());
               });
+              $('strong.strnum').html(data.msg);
+              $('span.attpri').html('$'+count);
               $('span.total').html(count);
             }else{
               alert(data.msg);
