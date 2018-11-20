@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-//加载校验类
-use App\Http\Requests\AdminBrandInsert;
-class BrandController extends Controller
+//导入校验类
+use App\Http\Requests\AdminLogInsert;
+class LogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,18 +16,21 @@ class BrandController extends Controller
      */
     public function index()
     {
+        //
         //获取数据
-        $data=DB::table('brand')->join('cates','brand.cateid','=','cates.id')->select('brand.id as bid','cates.id as cid','brand.name as bname','cates.name as cname','brand.state','brand.describe','brand.log')->get();
-       // dd($data);
+        $data=DB::table('logistics')->select()->get();
+        // dd($data);
         $state=[];
         foreach ($data as $key => $value) {
             if ($value->state==0) {
-              $state[$key]="不显示";
+                $state[$key]="隐藏";
             }else{
                 $state[$key]="显示";
             }
         }
-        return view("Admin.Brand.index",['data'=>$data,'state'=>$state]);
+        // dd($state);
+        return view("Admin.Log.index",['data'=>$data,'state'=>$state]);
+        
     }
 
     /**
@@ -35,49 +38,36 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //调整类别顺序 添加分隔符
-    public static function getcates(){
-        $cate=DB::table("cates")->select(DB::raw('*,concat(path,",",id) as paths '))->orderBy('paths')->get();
-        //遍历数据
-        foreach ($cate as $key => $value) {
-            //转换为数组
-            $arr=explode(",",$value->path);
-            $len=count($arr)-1;
-            //重复字符串函数
-            $cate[$key]->name=str_repeat("--|",$len).$value->name;
-        }
-        return $cate;
-    }
     public function create()
     {
-        //获取栏目数据
-        $data=self::getcates();
-        return view("Admin.Brand.add",['data'=>$data]);
+        //
+        return view("Admin.Log.add");
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+          * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //添加
-    public function store(AdminBrandInsert $request)
+    //添加物流
+    public function store(AdminLogInsert $request)
     {
-        //
-         if (!$request->hasFile('log')) {
-            return back()->with('error','请上传品牌log');
+        
+        if (!$request->hasFile('log')) {
+            return back()->with('error','请上传图片');
         }
         $data=$request->except('_token');
+        // $log=$request->file('log');
+        // dd($log);
         $name=time()+rand(1,10000);//获取文件名
         $ext=$request->file('log')->getClientOriginalExtension();//得到后缀名
-        $bool=$request->file("log")->move("./uploads",$name.".".$ext);
-        $data['log']="/uploads/".$name.".".$ext;
+       $bool=$request->file("log")->move("./uploads",$name.".".$ext);
+       $data['log']="/uploads/".$name.".".$ext;
         // dd($data);
         if (!$bool) {
             return back()->with('error','图片上传失败');
         }else{
-            if (DB::table('brand')->insert($data)) {
+            if (DB::table('logistics')->insert($data)) {
                return back()->with('success','数据添加成功');
              
             }else{
@@ -85,15 +75,17 @@ class BrandController extends Controller
             }
             
         }
+
+        // dd($ext);
+
     }
- //删除
+    //删除
     public function del(Request $request)
     {
-        $id=$request->input('bid');
+        $id=$request->input('id');
+        $path=DB::table('logistics')->where('id','=',$id)->select('log')->get();
 
-        $path=DB::table('brand')->where('id','=',$id)->select('log')->get();
-
-        if (DB::table('brand')->where('id','=',$id)->delete()) {
+        if (DB::table('logistics')->where('id','=',$id)->delete()) {
             //删除图片
             $res = unlink('.'.$path[0]->log);
             return response()->json(['msg'=>1]);
@@ -105,15 +97,15 @@ class BrandController extends Controller
     public function stop(Request $request)
     {
         // dd($request->input('id'));
-        $id=$request->input('bid');
-        $state=DB::table("brand")->where('id','=',$id)->select('state')->get();
+        $id=$request->input('id');
+        $state=DB::table("logistics")->where('id','=',$id)->select('state')->get();
          // //跟换状态
           if ($state[0]->state==0) {
               $data['state']=1;
           }else{
              $data['state']=0;
           }
-          if (DB::table('brand')->where('id','=',$id)->update($data)) {
+          if (DB::table('logistics')->where('id','=',$id)->update($data)) {
                //操作成功
                 return response()->json(['msg'=>1,'state'=>$data['state']]);
           }else{
@@ -128,13 +120,15 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($bid)
+    //编辑
+    public function show($id)
     {
-        
-        $id=$bid;
-        $cate=self::getcates();
-        $data=DB::table('brand')->where('id','=',$id)->first();        
-        return view("Admin.Brand.edit",['data'=>$data,'id'=>$id,'cate'=>$cate]);
+        //
+        // echo "string";
+        $id=$id;
+        $data=DB::table('logistics')->where('id','=',$id)->get();
+        // dd($data[0]->log);
+        return view("Admin.Log.edit",['data'=>$data,'id'=>$id]);
     }
 
     /**
@@ -146,6 +140,7 @@ class BrandController extends Controller
     public function edit($id)
     {
         //
+      
     }
 
     /**
@@ -155,18 +150,17 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //编辑
-    public function update(AdminBrandInsert $request, $id)
+    //执行修改
+    public function update(AdminLogInsert $request, $id)
     {
-        //
-       $data=$request->except('_token');
+        $data=$request->except('_token');
         unset($data['_method']);
         $id=$id;
           // dd($data);
           //判断是否修改图片
           if (!$request->hasFile('log')) {
               //没有修改图片 直接更新
-              if (DB::table('brand')->where('id','=',$id)->update($data)) {
+              if (DB::table('logistics')->where('id','=',$id)->update($data)) {
                return back()->with('success','数据更新成功');
              
             }else{
@@ -178,11 +172,10 @@ class BrandController extends Controller
             $ext=$request->file('log')->getClientOriginalExtension();//得到文件后缀
             $bool=$request->file("log")->move("./uploads",$name.".".$ext);//执行添加
             $data['log']="/uploads/".$name.".".$ext;//获取路径
-            // dd($data);
             if ($bool) {
                 //新图片插入成功 先删除源图片
                 //获取原路径
-                $path=DB::table('brand')->where('id','=',$id)->select('log')->get();
+                $path=DB::table('logistics')->where('id','=',$id)->select('log')->get();
                 // dd($path[0]->log);
                $res = unlink('.'.$path[0]->log);
 
@@ -194,7 +187,7 @@ class BrandController extends Controller
                }else{
                 //更新成功
                 //将数据写入数据库
-               if (DB::table('brand')->where('id','=',$id)->update($data)) {
+               if (DB::table('logistics')->where('id','=',$id)->update($data)) {
                    return back()->with('success','数据更新成功');
                 } else{
                     //更新失败

@@ -6,14 +6,10 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "barryvdh/laravel-debugbar": "^3.2",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
-        "laravel/tinker": "~1.0",
-
-        "mews/captcha": "^2.2"
-
-        "gregwar/captcha": "1.*"
-
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -25,20 +21,15 @@
     "autoload": {
         "classmap": [
             "database/seeds",
-            "database/factories",
-            "app/Library/Ucpaas.php"
+            "database/factories"
         ],
         "psr-4": {
             "App\\": "app/"
         },
-        "files":[
-
-            "app/Library/upload.php"
+            "files":[
         "app/Library/helper.php"
-
-
         ]
-    },
+        },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
@@ -67,6 +58,4 @@
         "sort-packages": true,
         "optimize-autoloader": true
     }
-
-
 }

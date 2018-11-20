@@ -151,6 +151,68 @@
       </ul> 
      </dd> 
     </dl> 
+    <!-- 分类管理 -->
+    <dl id="menu-admin"> 
+     <dt>
+      <i class="Hui-iconfont"></i> 分类管理
+      <i class="Hui-iconfont menu_dropdown-arrow"></i>
+     </dt> 
+     <dd> 
+      <ul> 
+        <li><a data-href="/adminCate" data-title="分类列表" href="javascript:void(0)">分类列表</a></li> 
+      </ul> 
+     </dd> 
+    </dl>
+    <!-- 商品管理 -->
+    <dl id="menu-admin"> 
+     <dt>
+      <i class="Hui-iconfont"></i> 商品管理
+      <i class="Hui-iconfont menu_dropdown-arrow"></i>
+     </dt> 
+     <dd> 
+      <ul> 
+        <li><a data-href="/adminshop" data-title="商品列表" href="javascript:void(0)">商品列表</a></li> 
+        <li><a data-href="/adminshop/create" data-title="添加商品" href="javascript:void(0)">添加商品</a></li> 
+      </ul> 
+     </dd> 
+    </dl>
+  <!-- 优惠券管理 -->
+   <dl id="menu-admin"> 
+     <dt>
+      <i class="Hui-iconfont"></i> 优惠券管理
+      <i class="Hui-iconfont menu_dropdown-arrow"></i>
+     </dt> 
+     <dd> 
+      <ul> 
+        <li><a data-href="/adminCoupon" data-title="商品列表" href="javascript:void(0)">优惠券列表</a></li> 
+      </ul> 
+     </dd> 
+    </dl>
+    <!-- 物流管理 -->
+    <dl id="menu-admin"> 
+     <dt>
+      <i class="Hui-iconfont"></i> 物流管理
+      <i class="Hui-iconfont menu_dropdown-arrow"></i>
+     </dt> 
+     <dd> 
+      <ul> 
+        <li><a data-href="/adminLog" data-title="物流列表" href="javascript:void(0)">物流列表</a></li> 
+      </ul> 
+     </dd> 
+    </dl>
+    <!-- 品牌管理 -->
+    <dl id="menu-admin"> 
+     <dt>
+      <i class="Hui-iconfont"></i> 品牌管理
+      <i class="Hui-iconfont menu_dropdown-arrow"></i>
+     </dt> 
+     <dd> 
+      <ul> 
+        <li><a data-href="/adminBrand" data-title="品牌列表" href="javascript:void(0)">品牌列表</a></li> 
+      </ul> 
+     </dd> 
+    </dl>
+    
       <dl id="menu-picture"> 
      <dt>
       <i class="Hui-iconfont"></i> 模块管理

@@ -176,9 +176,8 @@ class ShopController extends Controller
     }
 
 
-        $data = DB::table('diy_shopicture')->where('sid','=',$id)->get();
-        return view('Admin.Admin.Shop.show',['data'=>$data]);
-    }
+        // $data = DB::table('diy_shopicture')->where('sid','=',$id)->get();
+        return view('Admin.Admin.Shop.show');
 
     //显示商品属性
     public function attrshow($id,$cateid)
