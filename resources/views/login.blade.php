@@ -1,101 +1,75 @@
-<!DOCTYPE html>
-<html >
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>可自由切换的注册登录表单模板</title>
-  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/static/Admin/login/css/normalize.min.css">
-
-  
-      <link rel="stylesheet" href="/static/Admin/login/css/style.css">
-
-  
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="/static/Admin/lib/html5shiv.js"></script>
+<script type="text/javascript" src="/static/Admin/lib/respond.min.js"></script>
+<![endif]-->
+<link href="/static/Admin/static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="/static/Admin/static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<link href="/static/Admin/static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/static/Admin/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="/static/Admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>温水煮青蛙后台登录系统</title>
+<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
-
 <body>
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div class="header"></div>
 
-  <div class="form">
-      
-      <ul class="tab-group">
-        <li class="tab active"><a href="#signup">注册</a></li>
-        <li class="tab"><a href="#login">登录</a></li>
-      </ul>
-      
-      <div class="tab-content">
-        <div id="signup">   
-          <h1>免费注册</h1>
-          
-          <form action="/" method="post">
-          
-          <div class="top-row">
-            <div class="field-wrap">
-              <label>
-                用户民<span class="req">*</span>
-              </label>
-              <input type="text" required autocomplete="off" />
-            </div>
-        
-            <div class="field-wrap">
-              <label>
-                姓<span class="req">*</span>
-              </label>
-              <input type="text"required autocomplete="off"/>
-            </div>
-          </div>
+<div class="loginWraper">
 
-          <div class="field-wrap">
-            <label>
-              电子邮箱<span class="req">*</span>
-            </label>
-            <input type="email"required autocomplete="off"/>
-          </div>
-          
-          <div class="field-wrap">
-            <label>
-              设置密码<span class="req">*</span>
-            </label>
-            <input type="password"required autocomplete="off"/>
-          </div>
-          
-          <button type="submit" class="button button-block"/>开始创建</button>
-          
-          </form>
-
+  <div id="loginform" class="loginBox">
+  @if(session('error'))
+  <div class="Huialert Huialert-info"><i class="Hui-iconfont">&#xe6a6;</i>{{session('error')}}</div>
+  @endif 
+    <form class="form form-horizontal" action="/adminlogin" method="post">
+      <div class="row cl">
+        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-xs-8">
+          <input id="" name="name" type="text" placeholder="账户" class="input-text size-L">
+          {{csrf_field()}}
         </div>
-        
-        <div id="login">   
-          <h1>欢迎来到</h1>
-          
-          <form action="/" method="post">
-          
-            <div class="field-wrap">
-            <label>
-              电子邮箱<span class="req">*</span>
-            </label>
-            <input type="email"required autocomplete="off"/>
-          </div>
-          
-          <div class="field-wrap">
-            <label>
-              密码<span class="req">*</span>
-            </label>
-            <input type="password"required autocomplete="off"/>
-          </div>
-          
-          <p class="forgot"><a href="#">找回密码?</a></p>
-          
-          <button class="button button-block"/>登录</button>
-          
-          </form>
-
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-xs-8">
+          <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
         </div>
-        
-      </div><!-- tab-content -->
-      
-</div> <!-- /form -->
-  <script src='/static/Admin/login/js/jquery.min.js'></script>
-
-    <script  src="/static/Admin/login/js/index.js"></script>
-
+      </div>
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
+          <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
+      </div>
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <label for="online">
+            <input type="checkbox" name="online" id="online" value="">
+            使我保持登录状态</label>
+        </div>
+      </div>
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="footer">Copyright 你的公司名称 by H-ui.admin v3.1</div>
+<script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="/static/Admin/static/h-ui/js/H-ui.min.js"></script>
 </body>
+
 </html>
