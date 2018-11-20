@@ -120,9 +120,8 @@ class LoginController extends Controller
         $phone=$request->input('phonelogin');
         $data=DB::table('diy_users')->where('phone','=',$phone)->first();
         if($data){
-            // echo '登录成功';
             if($data->status==2){
-               session(['username'=>$data->username]);
+               	session(['username'=>$data->username]);
                 session(['id'=>$data->id]);
                return redirect('/');
             }else{
@@ -163,7 +162,6 @@ class LoginController extends Controller
             if($data){
                 if(Hash::check($password,$data->password)){
                     if($data->status==2){
-                        // echo '登录成功';
                         session(['username'=>$data->username]);
                          session(['id'=>$data->id]);
                         return redirect('/');
