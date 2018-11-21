@@ -1,0 +1,1 @@
+<a href="http://www.biubiubiu.com/emailpass?id={{$id}}&token={{$token}}">点击重置密码</a>
