@@ -17,12 +17,15 @@ class LoginController extends Controller
      */
     
 
+
     public function index(Request $request)
     {
         $request->session()->pull('username');
         return view('Home.Login.homelogin');
     }
 
+
+  
     /**
      * Show the form for creating a new resource.
      *
@@ -47,16 +50,15 @@ class LoginController extends Controller
         if(!empty($username)){
             if(!empty($password)){
                 $data=DB::table('diy_users')->where('username','=',$username)->first();
-
                 if($data){
                     if(Hash::check($password,$data->password)){
-                        if($data->status==2){
-                            session(['username'=>$data->username]);
-                            session(['id'=>$data->id]);
-                           return redirect('/');
-                        }else{
-                            return back()->with('user','用户未激活');
-                        }
+                            if($data->status==2){
+                                session(['username'=>$data->username]);
+                                session(['id'=>$data->id]);
+                                return redirect('/');
+                            }else{
+                                return back()->with('user','用户未激活');
+                            }
                     }else{
                          return back()->with('pass','密码错误');
                     }
@@ -70,7 +72,6 @@ class LoginController extends Controller
             return back()->with('user','用户名不能为空');
         }
     }
-
     /**
      * Display the specified resource.
      *
@@ -116,10 +117,12 @@ class LoginController extends Controller
         //
     }
     //手机短信登录
-    public function dophonelogin(Request $request){
+    public function dophonelogin(Request $request)
+    {
         $phone=$request->input('phonelogin');
         $data=DB::table('diy_users')->where('phone','=',$phone)->first();
         if($data){
+
             if($data->status==2){
                	session(['username'=>$data->username]);
                 session(['id'=>$data->id]);
@@ -132,12 +135,14 @@ class LoginController extends Controller
         }
     }
     //登录短信ajax
-    public function phoneloginajax(Request $request){
+    public function phoneloginajax(Request $request)
+    {
         $phone=$request->input('phone');
         sendsphone($phone);
     }
     //验证码对比
-    public function phoneloginajaxyzm(Request $request){
+    public function phoneloginajaxyzm(Request $request)
+    {
         $code=$request->input('code');
         if(\Cookie::get('code')!==null){
             if(\Cookie::get('code')==$code){
@@ -152,7 +157,8 @@ class LoginController extends Controller
         }
     }
     //邮箱登录
-    public function doemaillogin(Request $request){
+    public function doemaillogin(Request $request)
+    {
         $password=$request->input('password');
         $email=$request->input('email');
         $yanzhengma=$request->input('yanzhengma');
@@ -162,9 +168,13 @@ class LoginController extends Controller
             if($data){
                 if(Hash::check($password,$data->password)){
                     if($data->status==2){
+
                         session(['username'=>$data->username]);
                          session(['id'=>$data->id]);
                         return redirect('/');
+
+                        echo '登录成功';
+
                     }else{
                         return back()->with('youxiang','改账号还未激活');
                     }

@@ -77,7 +77,10 @@ class InformationController extends Controller
             if($request->hasFile('pic')){
                     // 删除原来的图片
                     $pic=DB::table('diy_usersinfo')->where('userid','=',$userid)->first();
-                    unlink($pic->pic);
+
+                    if($pic->pic != ''){
+                        unlink($pic->pic);
+                    }
                     // dd($pic);
                 // 修改图片
                  //初始化名字

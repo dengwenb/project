@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
+
+
+use Illuminate\Http\Request;
+
 use Illuminate\Support\ServiceProvider;
 use DB;
 class AppServiceProvider extends ServiceProvider
 {
+
      //获取分类数据
     public function getcatesbypid($pid){
         $res=DB::table("cates")->where("pid",'=',$pid)->where('state','=','0')->get();
@@ -49,11 +54,14 @@ class AppServiceProvider extends ServiceProvider
 
     //     return count($temp);
     // }
+
+
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
+
     public function boot()
     {
         // $user=session('username');
@@ -63,10 +71,10 @@ class AppServiceProvider extends ServiceProvider
         // view()->share('online', $online);
         view()->share('nav', $cate);
        
-         
+       }  
         
- 
-    }
+
+   
 
     /**
      * Register any application services.

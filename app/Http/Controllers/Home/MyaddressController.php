@@ -123,29 +123,19 @@ class MyaddressController extends Controller
 
     }
 
-
+public function ss(){
+    echo '1';
+}
 
 
     //默认地址
     public function moren(Request $request){
         $id=$request->input('id');
+        $check['checked']='1';
+        $data=DB::table('diy_address')->where('userid','=',session('id'))->update($check);
         $check['checked']='2';
-        $chec['checked']='1';
-        $data=DB::table('diy_address')->where('userid',session('id'))->select('id')->get();
-        $res=json_decode(json_encode($data),true);
-        foreach($res as $key=>$val){
-           foreach($val as $k=>$v){
-            $arr[]=$v;
-           }
-        }
-        $arr=array_flip($arr);
-        unset($arr[$id]);
-        // dd($arr);
-        $arr=array_flip($arr);
-        // dd($arr);
-        $info=DB::table('diy_address')->whereIn('id',$arr)->update($check);
-        $into=DB::table('diy_address')->whereNotIn('id',$arr)->update($chec);
-        if($info && $into){ 
+        $data=DB::table('diy_address')->where('id','=',$id)->update($check);
+        if($data){
             echo 1;
         }else{
             echo 2;

@@ -11,11 +11,140 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 // 后台登录
 Route::resource('/adminlogin','Admin\AdminLoginController');
+
+Route::resource("/","Home\IndexController");
+
+
+//后台登录  
+Route::resource("/adminlogin","Admin\AdminloginController");
+
+Route::group(['middleware'=>'adminlogin'],function(){
+    // 后台模块
+    Route::resource('/admin','Admin\AdminController');
+    //后台管理员模块
+    Route::resource('/adminAdminUser','Admin\AdminUserController');
+    //后台会员模块
+    Route::resource("/adminAdminVip",'Admin\AdminVipController'); 
+    //后台权限管理
+    Route::resource("/adminRolelist","Admin\RolelistController");
+     //后台栏目管理
+    Route::resource("/adminColumn","Admin\ColumnController");
+    //商品套餐
+    Route::resource("/adminShop","Admin\ShopController");
+
+    //后台权限分配
+    Route::get("/list/{id}","Admin\RolelistController@auth");
+    //后台权限保存
+    Route::post("/saveauth","Admin\RolelistController@saveauth");
+     //后台用户密保状态修改
+    Route::get("/adminvipque","Admin\AdminVipController@que");
+    //权限限制信息提示
+    Route::get("mes","Admin\AdminController@mes");
+     //后台ajax删除
+    Route::get("/adminuserdel",'Admin\AdminUserController@del');
+    //后台密码修改
+    Route::get('/adminuserres','Admin\AdminUserController@res');
+    //后台用户状态修改
+    Route::get("/adminvipsta","Admin\AdminVipController@sta");
+    // //后台栏目管理删除
+    Route::get("/admincolumndel","Admin\ColumnController@del");
+    //后台会员信息密码重置
+    Route::get("/adminvipres","Admin\AdminVipController@res");
+    //后台会员查看密保
+    Route::get("/adminvipques/{id}","Admin\AdminVipController@ques");
+    //后台会员查看地址
+    Route::get("/adminvipaddress/{id}","Admin\AdminVipController@address");
+
+    //后台文章管理模块
+    Route::resource('/adminArticle','Admin\ArticleController');
+    //后台链接删除
+    Route::get('/adminArticledel','Admin\ArticleController@del');
+    //后台链接显示
+    Route::get('/adminArticlestatus','Admin\ArticleController@under');
+    //后台链接批量删除
+    Route::get('/adminArticledelall','Admin\ArticleController@delall');
+    //
+    Route::get('/adminArticleshow','Admin\ArticleController@delall');
+    Route::get('/adminArticledel','Admin\ArticleController@del');
+  
+   Route::get('/adminout','Admin\AdminController@out');
+        //后台订单表
+        Route::resource('/adminOrder','Admin\OrderController');
+        //订单详情表
+        Route::resource('/adminorderinfo','Admin\OrderinfoController');
+        // 发货按钮
+        Route::get('/adminorders/{id}','Admin\OrderinfoController@static');
+        //后台用户评论模块
+        Route::resource('/adminReviews','Admin\ReviewsController');
+        //ajax评论删除
+        Route::get('/reviewsajax','Admin\ReviewsController@reviewsajax');
+
+	//后台链接管理模块
+	Route::resource('/adminLink','Admin\LinkController');
+	//后台链接删除
+	Route::get('/adminLinkdel','Admin\LinkController@del');
+	//后台链接显示
+	Route::get('/adminLinkstatus','Admin\LinkController@under');
+	//后台链接批量删除
+	Route::get('/adminLinkdelall','Admin\LinkController@delall');
+	//轮播图管理
+	Route::resource('/adminBroadcast','Admin\BroadcastController');
+	//修改轮播图状态
+	Route::get('/adminBroadcaststatus','Admin\BroadcastController@under');
+	//轮播图批量删除
+	Route::get('/adminBroadcastdelall','Admin\BroadcastController@delall');
+	//图片管理
+	Route::resource('/adminPicture','Admin\PictureController');
+	//公告管理
+	Route::resource('/adminBulletin','Admin\BulletinController');
+	//更新公告优先级
+	Route::get('/adminBulletinedit','Admin\BulletinController@myedit');
+	//修改公告状态
+	Route::get('/adminBulletinstatus','Admin\BulletinController@status');
+	//批量删除公告
+	Route::get('/adminBulletindelall','Admin\BulletinController@delall');
+	//商品管理
+	Route::resource('/adminShop','Admin\ShopController');
+	//添加商品图片
+	Route::get('/adminPictureadd/{id}','Admin\ShopController@picadd');
+	//获取商品对应类下的属性
+	Route::get('/adminShopgetattr','Admin\ShopController@getattr');
+	//获取商品对应属性下的属性值
+	Route::get('/adminShopgetvalue','Admin\ShopController@getvalue');
+	//修改商品状态
+	Route::get('/adminShopstatus','Admin\ShopController@myedit');
+	//更新商品规格
+	Route::post('/adminShopupdate/{id}','Admin\ShopController@attrupdate');
+	//显示商品规格
+	Route::get('/adminShopattr/{id}/{cateid}','Admin\ShopController@attrshow');
+	//模块管理
+	Route::resource('/adminModule','Admin\ModuleController');
+	//模块批量删除
+	Route::get('/adminModuledelall','Admin\ModuleController@delall');
+	//修改模块状态
+	Route::get('/adminModulestatus','Admin\ModuleController@myedit');
+	//删除商品属性
+	Route::get('/adminShopadel','Admin\ShopController@attrdel');
+	//库存管理
+	Route::resource('/adminSku','Admin\SkuController');
+	Route::get('/adminSkuchange','Admin\SkuController@change');
+	Route::get('/adminSkuorder','Admin\SkuController@order');
+	Route::get('/adminSkushop','Admin\SkuController@shop');
+	Route::get('/adminSkuship','Admin\SkuController@ship');
+});
+    
+    Route::resource("/indexBlog","Home\BlogController");
+    Route::resource("/index","Home\IndexHomeController");
+    Route::get("/blogpost/{id}","Home\BlogController@blogpost");
+
+
+
 
 // 注册登录
 Route::group([],function(){
@@ -58,6 +187,7 @@ Route::group([],function(){
     Route::post('/doemaillogin','Home\LoginController@doemaillogin');
 
 });
+Route::get('/ss','Home\MyaddressController@ss');
 // 找回密码
 Route::group([],function(){
     Route::resource('/retrieve','Home\RetrieveController');
@@ -75,9 +205,10 @@ Route::group([],function(){
     Route::post('doemailpass','Home\RetrieveController@doemailpass');
 });
 
-    //个人中心
-Route::group([],function(){
-    // 首页
+
+    //个人中心Middleware
+Route::group(['middleware'=>'homelogin'],function(){
+    // 个人中心
     Route::resource('/userinfo','Home\UserInfoController');
     //我的资料
     Route::resource('/myinformation','Home\InformationController');
@@ -116,3 +247,17 @@ Route::group(['middleware'=>'adminlogin'],function(){
         
 
 });
+
+
+
+        
+
+
+//前台
+Route::resource('/homeShop','Home\ShopController');
+Route::resource('/homeCart','Home\CartController');
+Route::get('/homeCartprice','Home\CartController@getprice');
+Route::get('/homeShopcol','Home\ShopController@wishlist');
+Route::post('/homeShopcoldel','Home\ShopController@delwish');
+
+

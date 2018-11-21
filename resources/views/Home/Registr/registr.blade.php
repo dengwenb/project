@@ -1,16 +1,9 @@
-@extends("Home.Public.public")
-@section("home")
-
+@extends('HomeLoginPublic')
+@section('homelogin')
 
  <!-- 注册 -->
- 			<section class="main-container col1-layout">
-    <div class="main container">
-      
-        
-        <div class="page-content">
-          
-            <div class="account-login">
-            	 <div class="box-authentication">
+              <div class="box-authentication">
+
               <form action="/registercontroller" method="post" id="ff">
               {{csrf_field()}}
                 <h4>手机注册</h4>                  
@@ -18,12 +11,12 @@
                 <input id="emmail_register" type="text" class="form-control "  holder="请输入11位手机号码" id="password_login" name="phone"><font></font><br/>
                  <label for="password_login">密码:<span class="required">*</span></label>
                 <input  type="password" class="form-control" name="passwords" holder="密码必须以字母开头数字组合 5-20位"><font></font><br/>
-                 <label for="password_login">验证码:<span class="required">*</span><a class="btn btn-success" href="javascript:;" disabled id="boxx2" >发送验证码</a></label>
+                 <label for="password_login">验证码:<span class="required">*</span><span class="btn btn-success boxx2" disabled>发送验证码</span></label>
                 <input  type="text" class="form-control" name="passwordss" holder="请输入验证码"><font></font><br/>
                  <label for="password_login"></label>
                  <input type="submit" id="boxx" value="注册" class="btn btn-success">
-                <!-- <button class="button" id="boxx" type="submit"><i class="fa fa-user"></i>&nbsp; <span>注册</span></button> -->
-                </form>
+              <!-- <button class="button" id="boxx" type="submit"><i class="fa fa-user"></i>&nbsp; <span>注册</span></button> -->
+               </form>
                 <div class="register-benefits">
                         <h5>也可以使用以下方式注册 :</h5>
                         <ul>
@@ -31,14 +24,16 @@
                         </ul>
                       </div>
               </div>
+
             </div>
         </div>
       </div>
 
-    </div>
+    </div> 
   </section>
              
-              <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
+
+             <script type="text/javascript" src="/static/Admin/lib/jquery/1.9.1/jquery.min.js"></script> 
 			<script>
 				  flag=false;
 				  flage=false;
@@ -57,17 +52,15 @@
 				                  // alert(data);
 				                  if(data==1){
 				                    o.next().html('手机号已经存在').css('color','red');
-				                    $('#boxx2').attr('disabled',true);
 				                    flag=false;
 				                  }else{
 				                    o.next().html('√').css('color','green');
-				                    // $('#boxx2').attr('disabled',false);
+				                    $('.boxx2').attr('disabled',false);
 				                    flag=true;
 				                  }
 				             });
 				        }else{
 				              o.next().html('手机不符合格式').css('color','red');
-				               $('#boxx2').attr('disabled',true);
 				               flag=false; 
 				        }
 				    });
@@ -78,39 +71,41 @@
 				        strs=/^[a-zA-Z]+[a-z A-Z 0-9]{5,20}$/;
 				        if(strs.test(pass)){
 				         oo.next().html('√').css('color','green');
-				          $('#boxx2').attr('disabled',false);
 				          flage=true;
 				        }else{
 				         oo.next().html('密码不符合格式').css('color','red');
-				          $('#boxx2').attr('disabled',true);
 				          flage=false;
 				        }
 				    });
+				    // 密码个手机号都成功OK
+				     if(flag && flage){ $('.boxx2').attr('disabled',false);	}else{  $('.boxx2').attr('disabled',true);}
 				    //点击发送验证码按钮
-				    $('#boxx2').click(function(){
-				    
-				      if($('#boxx2').attr('disabled')){
+				    $('.boxx2').click(function(){
+				      if($('.boxx2').attr('disabled')){
 				      	return true;
 				      }
-				      ooo=$(this);
-				      phone=$("input[name='phone']").val();
-				       
-				      $.get('/homephone',{phones:phone},function(data){
-				          alert(data.code);
-				          if(data.code==000000){
-				            m=60;
-				            mytimmer=setInterval(function(){
-				              m--;
-				              ooo.html(m+'秒后后重新发送');
-				              ooo.attr('disabled',true);
-				              if(m==0){
-				                clearInterval(mytimmer);
-				                ooo.html('重新发送');
-				                ooo.attr('disabled',false);
-				              }
-				            },1000);
-				          }
-				      },'json');
+					      ooo=$(this);
+					      phone=$("input[name='phone']").val();
+					       	ooo.attr('disabled',true);
+						      $.get('/homephone',{phones:phone},function(data){
+						          // alert(data.code);
+						          if(data.code==000000){
+						            m=60;
+						            mytimmer=setInterval(function(){
+						              m--;
+						              ooo.html(m+'秒后重新发送');
+						              ooo.attr('disabled',true);
+						              if(m==0){
+						                clearInterval(mytimmer);
+						                ooo.html('重新发送');
+						                ooo.attr('disabled',false);
+						              }
+						            },1000);
+						          }else{
+						          	alert('手机不符合格式');
+						          }
+						      },'json');
+				  	
 				    });
 				    //验证码验证
 				    $("input[name='passwordss']").blur(function(){
@@ -135,16 +130,10 @@
 				    });
     // 格式不对阻止提交
     $('#ff').submit(function(){
-    	$('input').trigger('focus');
+    	$('input').trigger('blur');
      	if(flag && flage && flages){
-      		// alert('true');
       		return true;
   		}else{
-  			// return false;
-  			// alert('false');
-  			// alert(flag);
-  			// alert(flage);
-  			// alert(flages);
   			return false;
   		}
     });

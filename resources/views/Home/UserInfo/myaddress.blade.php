@@ -45,10 +45,10 @@
 								
 								<div class="am-u-sm-7 am-u-sm-offset-3" style="padding-right: 0rem;"> 
 									<label class="checkbox-pretty inline ">
-										<input type="checkbox"  name="checked">
+									<!-- 	<input type="checkbox"  name="checked">
 										<span style="font-size: 12px;color: #878787;">
 											<font style="font-size: 12px;color: #333333;">设为默认地址</font>
-										</span> </label> </div>
+										</span> --> </label> </div>
 							
 							</div>
 							
