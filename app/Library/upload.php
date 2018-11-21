@@ -65,4 +65,49 @@
              $txapi =  $json->result;
              return $txapi;
     }
+
+    function emjoy($num)
+    {
+        $time = time();
+        $page = rand(1,100);
+        $create_url = "http://v.juhe.cn/joke/content/list.php";
+        $post = array('key'=>'e693aadfcb57939e2d3e4640e9a9cdc8','pagesize'=>20,'time'=>$time,'page'=>$page);
+        $ch = curl_init();
+        curl_setopt($ch,CURLOPT_URL,$create_url);
+        curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$post);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        $outopt = curl_exec($ch);
+        curl_close($ch);
+        $json = json_decode($outopt,true);
+        $json = $json['result']['data'];
+        // $json = json_decode($outopt);
+        return $json;
+    }
+
+    function jiekou($url,$array,$method='get')
+    {
+        //初始化curl
+        $ch = curl_init();
+        //设置传输选项
+        
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        if ($method == 'post'){
+            //模拟post请求
+            curl_setopt($ch,CURLOPT_POST,1);
+            //传递参数
+            curl_setopt($ch,CURLOPT_POSTFIELDS,$array);
+        }elseif ($method == 'get'){
+            //在请求头部添加信息
+            curl_setopt($ch,CURLOPT_HEADER,0);
+            $url = $url."?".$array;
+        }
+        curl_setopt($ch,CURLOPT_URL,$url);
+        //执行curl
+        $res = curl_exec($ch);
+        //关闭curl
+        curl_close($ch);
+        $res = json_decode($res,true);
+        return $res;
+    }
 ?>

@@ -207,4 +207,8 @@ Route::resource('/homeCart','Home\CartController');
 Route::get('/homeCartprice','Home\CartController@getprice');
 Route::get('/homeShopcol','Home\ShopController@wishlist');
 Route::post('/homeShopcoldel','Home\ShopController@delwish');
+Route::get('/homeemjoy/{id}','Home\IndexController@myemjoy');
+Route::get('/hometq','Home\IndexController@tianqi');
+Route::get('/homezhoubian','Home\IndexController@zhoubian');
+Route::get('/homemap','Home\IndexController@showmap');
 

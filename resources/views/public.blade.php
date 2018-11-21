@@ -29,6 +29,7 @@
 <!-- font-awesome & simple line icons CSS -->
 <link rel="stylesheet" type="text/css" href="/static/Home/css/font-awesome.css" media="all">
 <link rel="stylesheet" type="text/css" href="/static/Home/css/simple-line-icons.css" media="all">
+<link href="/static/css/tqstyle.css" rel="stylesheet" type="text/css">
 
 <!-- owl.carousel CSS -->
 <link rel="stylesheet" type="text/css" href="/static/Home/css/owl.carousel.css">

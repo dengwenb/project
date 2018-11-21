@@ -44,11 +44,14 @@
             <div class="sortPagiBar">
               <div class="pagination-area " style="visibility: visible;">
                 <ul>
-                  <li><a class="active" href="javascript:;">1</a></li>
-                  <li><a href="javascript:;">2</a></li>
-                  <li><a href="javascript:;">3</a></li>
-                  <li><a href="javascript:;"><i class="fa fa-angle-right"></i></a></li>
-                  <span> 共10页 </span>
+                  <li class="myshow"><a class="active" href="javascript:;">1</a></li>
+                  <li class="myshow"><a href="javascript:;">2</a></li>
+                  <li class="myshow"><a href="javascript:;">3</a></li>
+                  <li style="display:none"><a href="javascript:;">4</a></li>
+                  <li style="display:none"><a href="javascript:;">5</a></li>
+                  <li style="display:none"><a href="javascript:;">6</a></li>
+                  <li class="myshow"><a href="javascript:;" class="not"><i class="fa fa-angle-right"></i></a></li>
+                   当前第<span class="mypage">1</span>页 <span> 共10页 </span>
                 </ul>
               </div>
             </div>
@@ -60,18 +63,23 @@
           <!-- Blog category -->
           <div class="block blog-module">
             <div class="sidebar-bar-title">
-              <h3>Blog Categories</h3>
+              <h3>新闻 分类</h3>
             </div>
             <div class="block_content"> 
               <!-- layered -->
               <div class="layered layered-category">
                 <div class="layered-content">
                   <ul class="tree-menu">
-                    <li><a href="#"><i class="fa fa-angle-right"></i>&nbsp; Images</a></li>
-                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="#">Audio</a></li>
-                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="#">Photos</a></li>
-                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="#">Diet &amp; Fitness</a></li>
-                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="#">Slider</a></li>
+                    <li><a href="#"><i class="fa fa-angle-right"></i>&nbsp; 推荐</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=shehui">社会</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=guonei">国内</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=guoji">国际</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=yule">娱乐</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=tiyu">体育</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=junshi">军事</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=keji">科技</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=caijing">财经</a></li>
+                    <li><i class="fa fa-angle-right"></i>&nbsp; <a href="/create?type=shishang">时尚</a></li>
                   </ul>
                 </div>
               </div>
@@ -224,12 +232,26 @@
     
   })
 
-  $('div.pagination-area').find('a').click(function(){
+  $('a.not').click(function(){
+  	if($(this).html()=='<i class="fa fa-angle-right"></i>'){
+  	   $(this).parents('li').siblings().show();
+  	   $(this).html('<i class="fa fa-angle-left"></i>');
+  	}else{
+  		$(this).parents('li').siblings().not('.myshow').hide();
+  	   $(this).html('<i class="fa fa-angle-right"></i>');
+  	}
+  })
+
+  $('div.pagination-area').find('a').not('.not').click(function(){
+  	$(this).addClass("active");
+  	$(this).parents('li').siblings().find('a').removeClass("active");
+
     var click = $(this).html();
+    $('span.mypage').html(click);
      $('li.post-item').each(function(){
-      if($(this).attr('num')> (4*(parseInt(click)+1))){
+      if($(this).attr('num')>(5*(parseInt(click)))){
          $(this).hide();
-      }else if($(this).attr('num')<(4*(parseInt(click)-1))){
+      }else if($(this).attr('num')<=(5*(parseInt(click)-1))){
          $(this).hide();
       }else{
         $(this).show();

@@ -20,8 +20,8 @@
       <div class="row">
         <div class="col-xs-12">
           <ul>
-            <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>&raquo;</span></li>
-            <li><strong>Wishlist</strong></li>
+            <li class="home"> <a title="Go to Home Page" href="/">首页</a><span>&raquo;</span></li>
+            <li><strong>收藏夹</strong></li>
           </ul>
         </div>
       </div>

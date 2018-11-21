@@ -100,10 +100,13 @@
           <div class="home-tab">
             <ul class="nav home-nav-tabs home-product-tabs">
             <!--推荐商品 -->
-              <li class="active"><a href="#featured" data-toggle="tab" aria-expanded="false">主打产品</a></li>
-              <li class="divider"></li>
+             <!--  <li class="active"><a href="#featured" data-toggle="tab" aria-expanded="false">主打产品</a></li> -->
+             
                @foreach($cates as $key=>$value)
-              <li> <a href="#top-sellers{{$key}}" data-toggle="tab" aria-expanded="false">{{$value->name}}</a> </li>
+              @if($key==0) <li class="active"><a href="#featured" data-toggle="tab" aria-expanded="false">{{$value->name}}</a></li>
+               <li class="divider"></li>
+              @else
+              <li> <a href="#top-sellers{{$key}}" data-toggle="tab" aria-expanded="false">{{$value->name}}</a> </li>@endif
               @endforeach
             </ul>
             <div id="productTabContent" class="tab-content">
@@ -112,39 +115,50 @@
                   <div class="slider-items-products">
                     <div id="featured-slider" class="product-flexslider hidden-buttons">
                       <div class="slider-items slider-width-col4">
+                         @foreach($shop as $val)
+                         @if ($val->cate_id == $cates[0]->id)
                         <div class="product-item">
                           <div class="item-inner">
                             <div class="product-thumbnail">
-                            <!--图片左上角 -->
-                              <div class="icon-sale-label sale-left">热销</div>
-                              <!--图片右上角 -->
-                              <div class="icon-new-label new-right">新款</div>
+                            <!-- 图片标注 -->
+                              <div class="icon-sale-label sale-left">Sale</div>
+                              <div class="icon-new-label new-right">New</div>
+                              <!-- 特效 -->
                               <div class="pr-img-area"> <a title="Ipsums Dolors Untra" href="single_product.html">
-                                <figure> <img class="first-img" src="static/home/images/products/img01.jpg" alt=""> <img class="hover-img" src="static/home/images/products/img01.jpg" alt=""></figure>
+                                <figure> <img class="first-img" src="{{substr($val->pic,1)}}" alt=""> <img class="hover-img" src="{{substr($val->pic,1)}}" alt=""></figure>
                                 </a>
-                                <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span> 加入购物车</span> </button>
+                                <form action="/homeCart" method="post"> 
+                            <input type="hidden" name="pic" value="{{substr($val->pic,1)}}">
+                            <input type="hidden" name="price" value="{{$val->price}}">
+                            <input type="hidden" name="sid" value="{{$val->id}}">
+                            <input type="hidden" name="skuattr" value="{{$val->skuattr}}">
+                            <th class="td-add-to-cart"> <button type="submit" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span>加入购物车</span> </button></th>
+                            {{csrf_field()}}
+                          </form>  
                               </div>
                               <div class="pr-info-area">
                                 <div class="pr-button">
-                                  <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart"></i> </a> </div>
+                                  <div class="mt-button add_to_wishlist"><a href="javascript:;" onClick="shoucang(this,{{$val->id}})"> <i class="fa fa-heart"></i> </a> </div>
                                   <div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-signal"></i> </a> </div>
-                                  <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>
+                                  <div class="mt-button quick-view"> <a href="/homeShop/{{$val->id}}"> <i class="fa fa-search"></i> </a> </div>
                                 </div>
                               </div>
                             </div>
                             <div class="item-info">
                               <div class="info-inner">
-                                <div class="item-title"> <a title="Ipsums Dolors Untra" href="single_product.html">Ipsums Dolors Untra </a> </div>
+                                <div class="item-title"> <a title="Ipsums Dolors Untra" href="single_product.html">{{$val->name}}</a> </div>
                                 <div class="item-content">
-                                  <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                  <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
                                   <div class="item-price">
-                                    <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
+                                    <div class="price-box"> <span class="regular-price"> <span class="price">${{$val->price}}</span> </span> </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
+                         @endif
+                         @endforeach
                       </div>
                     </div>
                   </div>
@@ -170,11 +184,18 @@
                               <div class="pr-img-area"> <a title="Ipsums Dolors Untra" href="single_product.html">
                                 <figure> <img class="first-img" src="{{substr($val->pic,1)}}" alt=""> <img class="hover-img" src="{{substr($val->pic,1)}}" alt=""></figure>
                                 </a>
-                                <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span>加入购物车</span> </button>
+                                <form action="/homeCart" method="post"> 
+                            <input type="hidden" name="pic" value="{{substr($val->pic,1)}}">
+                            <input type="hidden" name="price" value="{{$val->price}}">
+                            <input type="hidden" name="sid" value="{{$val->id}}">
+                            <input type="hidden" name="skuattr" value="{{$val->skuattr}}">
+                            <th class="td-add-to-cart"> <button type="submit" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span>加入购物车</span> </button></th>
+                            {{csrf_field()}}
+                          </form>  
                               </div>
                               <div class="pr-info-area">
                                 <div class="pr-button">
-                                  <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart"></i> </a> </div>
+                                  <div class="mt-button add_to_wishlist"><a href="javascript:;" onClick="shoucang(this,{{$val->id}})"> <i class="fa fa-heart"></i> </a> </div>
                                   <div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-signal"></i> </a> </div>
                                   <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>
                                 </div>
@@ -218,14 +239,21 @@
                       <div class="pr-img-area"> <a title="Ipsums Dolors Untra" href="single_product.html">
                         <figure> <img class="first-img" src="{{substr($shop[0]->pic,1)}}" alt=""> <img class="hover-img" src="{{substr($shop[0]->pic,1)}}" alt=""></figure>
                         </a>
-                        <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span>加入购物车</span> </button>
+                        <form action="/homeCart" method="post"> 
+                        <input type="hidden" name="pic" value="{{substr($val->pic,1)}}">
+                    <input type="hidden" name="price" value="{{$val->price}}">
+                    <input type="hidden" name="sid" value="{{$val->id}}">
+                    <input type="hidden" name="skuattr" value="{{$val->skuattr}}">
+                     <th class="td-add-to-cart"> <button type="submit" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span>加入购物车</span> </button></th>
+                     {{csrf_field()}}
+                   </form>  
                       </div>
                       <div class="jtv-box-timer">
                         <div class="countbox_1 jtv-timer-grid"></div>
                       </div>
                       <div class="pr-info-area">
                         <div class="pr-button">
-                          <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart"></i> </a> </div>
+                          <div class="mt-button add_to_wishlist"><a href="javascript:;" onClick="shoucang(this,{{$shop[0]->id}})"><i class="fa fa-heart"></i> </a> </div>
                           <div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-signal"></i> </a> </div>
                           <div class="mt-button quick-view"> <a href="/homeShop/{{$shop[0]->id}}"> <i class="fa fa-search"></i> </a> </div>
                         </div>
@@ -276,15 +304,31 @@
       </div>
       <div class="col-sm-3 col-xs-12">
         <div class="jtv-banner-box banner-inner">
-          <div class="image"> <a class="jtv-banner-opacity" href="#"><img src="static/home/images/top-banner3.jpg" alt=""></a> </div>
-          <div class="jtv-content-text">
-            <h3 class="title">New Arrival</h3>
+          <div class="weather-wrapper">
+              <div class="weather-card madrid tianqi">
+                  <div class="weather-icon sun"></div>
+                  <h3 style="color: #B8B8B8; position:relative;top:100px;left:90px">晴</h3>
+                  <h1>26º</h1>
+                  <p class="mycity">厦门</p>
+                  <div class="language-currency-wrapper">
+                    <div class="inner-cl">
+                      <div class="block block-currency">
+                        <div class="item-cur" style="position:relative;top:200px;left:35px"> <span>切换城市</span> <i class="fa fa-angle-down"></i></div>
+                          <ul style="position:absolute;top:115px;right:10px">
+                            <li> <a href="javascript:;" onclick="tianqi(this,'广州')"><span class="cur_icon">广州</span></a> </li>
+                            <li> <a href="javascript:;"><span class="cur_icon" onclick="tianqi(this,'深圳')">深圳</span></a> </li>
+                            <li> <a class="selected" href="javascript:;" onclick="tianqi(this,'佛山')"><span class="cur_icon">佛山</span></a> </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+              </div>
           </div>
         </div>
         <div class="jtv-banner-box banner-inner">
-          <div class="image "> <a class="jtv-banner-opacity" href="#"><img src="static/home/images/top-banner4.jpg" alt=""></a> </div>
+          <div class="image "> <a class="jtv-banner-opacity" href="javascript:;" onclick="cemjoy(1)"><img src="/images/emjoy.gif" alt="让你笑个不停"></a> </div>
           <div class="jtv-content-text">
-            <h3 class="title">Accessories</h3>
+            <h3 class="title">笑话</h3>
           </div>
         </div>
       </div>
@@ -313,7 +357,14 @@
                     <div class="pr-img-area"> <a title="Ipsums Dolors Untra" href="single_product.html">
                       <figure> <img class="first-img" src="{{substr($val->pic,1)}}" alt=""> <img class="hover-img" src="{{substr($val->pic,1)}}" alt=""></figure>
                       </a>
-                      <button type="button" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span> 添加到购物车</span> </button>
+                       <form action="/homeCart" method="post"> 
+                            <input type="hidden" name="pic" value="{{substr($val->pic,1)}}">
+                            <input type="hidden" name="price" value="{{$val->price}}">
+                            <input type="hidden" name="sid" value="{{$val->id}}">
+                            <input type="hidden" name="skuattr" value="{{$val->skuattr}}">
+                            <th class="td-add-to-cart"> <button type="submit" class="add-to-cart-mt"> <i class="fa fa-shopping-cart"></i><span>加入购物车</span> </button></th>
+                            {{csrf_field()}}
+                 </form>  
                     </div>
                     <div class="pr-info-area">
                       <div class="pr-button">
@@ -574,6 +625,40 @@
                 }else{
                   alert(data.msg);
                 }     
+              },
+              error:function(data) {
+                console.log(data.msg);
+              },
+            });   
+      }
+
+      function cemjoy(num){
+          $.ajax({
+              type: 'GET',
+              url: '/homeemjoy/'+num,
+              dataType: 'json',
+              success: function(data){        
+                  alert(data.msg[Math.floor(Math.random()*20)].content);
+              },
+              error:function(data) {
+                console.log(data.msg);
+              },
+            });   
+      }
+
+      function tianqi(obj,city){
+         $.ajax({
+              type: 'GET',
+              url: '/hometq',
+              data: {city:city},
+              dataType: 'json',
+              success: function(data){       
+                  $(obj).parents('.tianqi').find('h1').html(data.msg.temperature.substr(0,3));
+                  $(obj).parents('.tianqi').find('p.mycity').html(data.msg.city);
+                  $(obj).parents('.tianqi').find('h3').html(data.msg.weather);
+                  if(data.weather != '晴'){
+                      $(obj).parents('.tianqi').find('div.weather-icon').removeClass('sun').addClass('cloud');
+                  }
               },
               error:function(data) {
                 console.log(data.msg);
